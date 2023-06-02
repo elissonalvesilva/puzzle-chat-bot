@@ -7,8 +7,15 @@ nlp = spacy.load('pt_core_news_sm')
 def preprocess_text(text):
     doc = nlp(text)
     lemmas = [token.lemma_ for token in doc]
+    preprocessed_lemmas = []
     
-    return ' '.join(lemmas)
+    for lemma in lemmas:
+        if lemma.isalpha():
+            preprocessed_lemmas.append(lemma)
+        else:
+            preprocessed_lemmas.append(lemma.lower())
+    
+    return ' '.join(preprocessed_lemmas)
 
 def compare_responses(response, response_options):
     preprocessed_response = preprocess_text(response)
