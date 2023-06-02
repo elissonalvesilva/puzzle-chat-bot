@@ -2,4 +2,3 @@ Flask
 Gunicorn
 spacy
 scikit-learn
-pt_core_news_sm
