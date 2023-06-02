@@ -21,17 +21,53 @@ def compare_responses(response, response_options):
     
     return similarity_scores
 
-def process():
-    response = "Falso ensinamento"
-    response_options = [
-        "Falsos ensinamentos",
-        "Falso ensinamento.",
-        "Falsos cristos",
-        "Falso enganos"
+def get_puzzle(question_id):
+    puzzles = [
+        {
+            'id': 1,
+            'puzzle': 'Em uma terra vasta e cheia de vida, '
+                    'Há habitantes cuja sede é tão intensa e aflita. '
+                    'Buscam nas vinhas de Babilônia seu elixir, '
+                    'Ignorando que nele há um veneno aferir. '
+                    'O líquido rubro escorre em suas gargantas, '
+                    'Um engano mortal, em busca de suas ansiadas jantas. '
+                    'Quem são esses seres, cegos pela luxúria? '
+                    'Deixe-me dizer, sua identidade é obscura.',
+            'answers': [
+                'Humanos',
+                'Bebedores de vinho',
+                'Babilônios',
+                'Viciados em álcool',
+                'Consumidores imprudentes',
+                'Aqueles que ignoram os perigos',
+                'Amantes da bebida',
+                'Pessoas sedentas',
+                'Adoradores de Dionísio (deus do vinho na mitologia grega)',
+                'Festeiros imprudentes',
+                'Vinho da Babilônia'
+            ],
+            'clue': 'Eu te amo'
+        }
     ]
 
-    similarity_scores = compare_responses(response, response_options)
-    return similarity_scores
+    for puzzle in puzzles:
+        if puzzle['id'] == id:
+            return puzzle['answers'], puzzle['clue']
+    return None
+
+
+def puzzle(puzzle_id, answer):
+    coeficiente_de_similaridade_min = 0.6
+
+    answers_options, clue = get_puzzle(puzzle_id)
+
+    similarity_scores = compare_responses(answer, answers_options)
+    for i, score in enumerate(similarity_scores):
+        if score >= coeficiente_de_similaridade_min:
+            return True, clue
+        print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
+
+    return False, None
 
     # for i, score in enumerate(similarity_scores):
     #     print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")

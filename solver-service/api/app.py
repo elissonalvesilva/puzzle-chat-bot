@@ -1,14 +1,21 @@
-from flask import Flask, request
+from flask import Flask, request, make_response
+from solver.solver import puzzle
 
 app = Flask(__name__)
 
-@app.route('/endpoint', methods=['POST'])
+@app.route('/puzzle', methods=['POST'])
 def endpoint():
     data = request.json
-    
-    # Obtém os dados enviados na solicitação POST como JSON
-    # Faça o processamento dos dados recebidos aqui
-    # ...
+    puzzle_id = int(data['puzzle_id'])
 
-    # Retorne uma resposta (opcional)
-    return {'message': 'POST received'}
+    # Obtém o campo 'answer' como uma string
+    answer = str(data['answer'])
+
+    result, clue = puzzle(puzzle_id, answer)
+
+    if result is True:
+      return {'message': {'clue': clue}}
+    else
+      message = 'Answer is incorret'
+      response = make_response(message, 404)
+      return response
