@@ -21,7 +21,7 @@ def compare_responses(response, response_options):
     
     return similarity_scores
 
-def get_puzzle(question_id):
+def get_puzzle(puzzle_id):
     puzzles = [
         {
             'id': 1,
@@ -51,9 +51,9 @@ def get_puzzle(question_id):
     ]
 
     for puzzle in puzzles:
-        if puzzle['id'] == id:
+        if puzzle['id'] == puzzle_id:
             return puzzle['answers'], puzzle['clue']
-    return None
+    return [], ""
 
 
 def puzzle(puzzle_id, answer):
