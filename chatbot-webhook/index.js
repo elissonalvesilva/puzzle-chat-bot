@@ -9,7 +9,7 @@ const token = process.env.WEBHOOK_TOKEN;
 
 app.post('/webhook', (req, res) => {
   if (token === verificationToken) {
-    res.sendStatus(200);
+    res.send({ "hub_challenge": token });
   } else {
     res.sendStatus(403);
   }
