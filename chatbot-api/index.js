@@ -11,7 +11,7 @@ const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUT
 
 app.get('/qr', (req, res) => {
   const twilioUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(
-    '+13612821173'
+    '+14155238886'
   )}`;
   qrcode.generate(twilioUrl, { small: true });
   res.send(twilioUrl);
