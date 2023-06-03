@@ -37,32 +37,32 @@ def get_puzzle(puzzle_id):
     },
     {
         "id": 2,
-        "answer": ["Mensagens angelicais", "Palavra de Deus"],
+        "answers": ["Mensagens angelicais", "Palavra de Deus"],
         "clue": "",
     },
     {
         "id": 3,
-        "answer": ["morada de demônios, espíritos de demônios e feitiçaria", "Morada de demonios, espiritos de demonios e feiticaria"],
+        "answers": ["morada de demônios, espíritos de demônios e feitiçaria", "Morada de demonios, espiritos de demonios e feiticaria"],
         "clue": "",
     },
     {
         "id": 4,
-        "answer": ["A doutrina da imortalidade da alma", "imortalidade da alma", "Reencarnação", "Reencarnacao"],
+        "answers": ["A doutrina da imortalidade da alma", "imortalidade da alma", "Reencarnação", "Reencarnacao"],
         "clue": "",
     },
     {
         "id": 5,
-        "answer": ["constantino", "Constantino", "Imperador constantino", "imperador constantino"],
+        "answers": ["constantino", "Constantino", "Imperador constantino", "imperador constantino"],
         "clue": "",
     },
     {
         "id": 6,
-        "answer": ["Sol", "Apolo", "Deus do Sol", "Deus sol"],
+        "answers": ["Sol", "Apolo", "Deus do Sol", "Deus sol"],
         "clue": "",
     },
     {
         "id": 7,
-        "answer": ["apocalipse 18", "apocalipse18", "ap 18", "ap18"],
+        "answers": ["apocalipse 18", "apocalipse18", "ap 18", "ap18"],
         "clue": "",
     }
     ]

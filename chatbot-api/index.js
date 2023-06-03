@@ -54,23 +54,30 @@ client.on('message', (message) => {
     client.sendMessage(message.from, steps[6]['question'])
   }
 
+  if (message.body !== "" || message.body !== " "){
 
-  const pattern = /1,r=(.*)/;
-  const correspondence = message.body.match(pattern)
-  if (correspondence) {
-    const puzzleId = correspondence[0]
-    const answer = correspondence[1];
-    axios.post(`${solverServiceURL}/puzzle`, {
-      puzzle_id: puzzleId,
-      answer,
-    }).then((resp) => {
-      client.sendMessage(message.from, "Resposta correta")
-      console.log(resp.data)
-    }).catch((err) => {
-      console.log(err);
-      client.sendMessage(message.from, "Resposta incorreta")
-    })
+    client.sendMessage(message.from, "Processando a resposta.... :)")
 
+    const qValue = message.body.match(/q=(.*?)(?:,|$)/)[1];
+    const rValue = message.body.match(/r=(.*?)(?:,|$)/)[1];
+
+    if (qValue && rValue) {
+      const puzzleId = qValue
+      const answer = rValue
+      axios.post(`${solverServiceURL}/puzzle`, {
+        puzzle_id: puzzleId,
+        answer,
+      }).then((resp) => {
+        client.sendMessage(message.from, "Resposta correta")
+        console.log(resp.data)
+      }).catch((err) => {
+        console.log(err);
+        client.sendMessage(message.from, "Resposta incorreta")
+      })
+
+    }else {
+      client.sendMessage(message.from, "Mensagem invalida ou vazia")
+    }
   }else {
     client.sendMessage(message.from, "Mensagem invalida ou vazia")
   }
