@@ -84,7 +84,7 @@ def puzzle(puzzle_id, answer):
     similarity_scores = compare_responses(answer, answers_options)
     for i, score in enumerate(similarity_scores):
         percentage_score = score * 100
-        if percentage_score >= coeficiente_de_similaridade_min:
+        if score >= coeficiente_de_similaridade_min:
             print(f"Similaridade entre a resposta dada e a opção {i+1}: {percentage_score:.2f}%")
             return True, clue, percentage_score
         print(f"Similaridade entre a resposta dada e a opção {i+1}: {percentage_score:.2f}%")
