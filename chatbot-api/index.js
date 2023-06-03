@@ -70,6 +70,7 @@ client.on('message', (message) => {
       }).then((resp) => {
         client.sendMessage(message.from, "Resposta correta")
         console.log(resp.data)
+        client.sendMessage(message.from, resp.data.message.clue)
       }).catch((err) => {
         console.log(err);
         client.sendMessage(message.from, "Resposta incorreta")

@@ -89,16 +89,6 @@ const steps = [
     Adorado por muitos, eu testemunhei impérios crescerem e desaparecerem.
     Embora minha adoração tenha diminuído ao longo dos séculos, meu poder permanece incontestável.
     Quem sou eu?`
-  },
-  {
-    id: 7,
-    question: `O significado oculto que essa lei traz consigo, a revelar.
-    Aqui está um código secreto:
-    Pista 1: "Asas celestiais revelam o caminho."
-    Pista 2: "A chave reside no número do destino."
-    Pista 3: "O deslocamento é a chave para desvendar o código."
-    Código secreto: Dsrdoflsh 21
-    `
   }
 ]
 

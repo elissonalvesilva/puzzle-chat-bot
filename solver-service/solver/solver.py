@@ -33,37 +33,32 @@ def get_puzzle(puzzle_id):
     {
         "id": 1,
         "answers": ["Vinho da babilônia", "Vinho da prostituição", "vinho da babilonia", "vinho da babilônia"],
-        "clue": "",
+        "clue": "Caiu, caiu a grande Babilônia",
     },
     {
         "id": 2,
-        "answers": ["Mensagens angelicais", "Palavra de Deus"],
-        "clue": "",
+        "answers": ["Mensagens angelicais","mensagens angelicais", "mensagens Angelicais", "Palavra de Deus"],
+        "clue": "Jamais se levantará",
     },
     {
         "id": 3,
         "answers": ["morada de demônios, espíritos de demônios e feitiçaria", "Morada de demonios, espiritos de demonios e feiticaria"],
-        "clue": "",
+        "clue": "E quem adorar",
     },
     {
         "id": 4,
         "answers": ["A doutrina da imortalidade da alma", "imortalidade da alma", "Reencarnação", "Reencarnacao"],
-        "clue": "",
+        "clue": "ao Deus verdadeiro",
     },
     {
         "id": 5,
         "answers": ["constantino", "Constantino", "Imperador constantino", "imperador constantino"],
-        "clue": "",
+        "clue": "sua marca",
     },
     {
         "id": 6,
         "answers": ["Sol", "Apolo", "Deus do Sol", "Deus sol"],
-        "clue": "",
-    },
-    {
-        "id": 7,
-        "answers": ["apocalipse 18", "apocalipse18", "ap 18", "ap18"],
-        "clue": "",
+        "clue": "receberá",
     }
     ]
     for puzzle in puzzles:
