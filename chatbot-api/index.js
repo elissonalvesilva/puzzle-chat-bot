@@ -1,20 +1,30 @@
+const express = require('express');
+const { urlencoded } = require('body-parser');
+const { Twilio } = require('twilio');
 const qrcode = require('qrcode-terminal');
-const { Client } = require('whatsapp-web.js');
 
-const client = new Client();
+const app = express();
+app.use(urlencoded({ extended: false }));
 
-client.initialize();
+const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-client.on('qr', (qr) => {
-  qrcode.generate(qr, { small: true });
+
+app.get('/qr', (req, res) => {
+  const twilioUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(
+    '+13612821173'
+  )}`;
+  qrcode.generate(twilioUrl, { small: true });
+  res.send(twilioUrl);
 });
 
-client.on('ready', () => {
-  console.log('Client is ready!');
+
+app.post('/webhook', (req, res) => {
+  const twiml = new MessagingResponse();
+  twiml.message('Hello from your Twilio chatbot!');
+  res.set('Content-Type', 'text/xml');
+  res.send(twiml.toString());
 });
 
-client.on('message', (message) => {
-  if (message.body === 'hello') {
-    message.reply('Hiiiii');
-  }
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });
