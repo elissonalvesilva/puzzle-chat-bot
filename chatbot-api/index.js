@@ -55,13 +55,11 @@ client.on('message', (message) => {
   }
 
   if (message.body !== "" || message.body !== " "){
-
-    client.sendMessage(message.from, "Processando a resposta.... :)")
-
     const qValue = message.body.match(/q=(.*?)(?:,|$)/)[1];
     const rValue = message.body.match(/r=(.*?)(?:,|$)/)[1];
 
     if (qValue && rValue) {
+      client.sendMessage(message.from, "Processando a resposta.... :)")
       const puzzleId = qValue
       const answer = rValue
       axios.post(`${solverServiceURL}/puzzle`, {
@@ -78,6 +76,8 @@ client.on('message', (message) => {
 
     }else {
       client.sendMessage(message.from, "Mensagem invalida ou vazia")
+      client.sendMessage(message.from, "Enviar mensagem nesse padrão: ")
+      client.sendMessage(message.from, "q=<NUMERO_DA_QUESTAO>,r=<SUA_RESPOSTA>")
     }
   }else {
     client.sendMessage(message.from, "Mensagem invalida ou vazia")
