@@ -2,6 +2,8 @@ const express = require('express');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const QRCode = require('qrcode-svg');
 const app = express();
+const qrcode = require('qrcode');
+
 const steps = require('./steps');
 const qrcode = require('qrcode-terminal');
 const { default: axios } = require('axios');
@@ -17,8 +19,9 @@ client.on('ready', () => {
   console.log('Cliente está pronto!');
 });
 
-client.on('qr', (qr) => {
+client.on('qr', async (qr) => {
   qrCodeGenerated = qr;
+  qrCodeGenerated = await qrcode.toDataURL(qr);
   // const qrCode = new QRCode(qr);
   // const qrCodeSvg = qrCode.svg();
   // res.setHeader('Content-Type', 'image/svg+xml');
