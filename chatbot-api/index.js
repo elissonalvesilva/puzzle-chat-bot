@@ -21,7 +21,7 @@ client.on('ready', () => {
 
 client.on('qr', async (qr) => {
   qrCodeGenerated = qr;
-  qrCodeGenerated = await qrcode.toDataURL(qr);
+  qrCodeGenerated = await qrcode.toDataURL(qr, { width: 100 });
   // const qrCode = new QRCode(qr);
   // const qrCodeSvg = qrCode.svg();
   // res.setHeader('Content-Type', 'image/svg+xml');
