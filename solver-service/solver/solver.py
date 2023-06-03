@@ -1,19 +1,28 @@
 import spacy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from unidecode import unidecode
 
 nlp = spacy.load('pt_core_news_sm')
 
+
 def preprocess_text(text):
     doc = nlp(text)
-    lemmas = [token.lemma_ for token in doc]
     preprocessed_lemmas = []
     
-    for lemma in lemmas:
-        if lemma.isalpha():
-            preprocessed_lemmas.append(lemma)
+    for token in doc:
+        lemma_with_accent = token.lemma_
+        lemma_without_accent = unidecode(lemma_with_accent)
+        
+        if lemma_with_accent.isalpha():
+            preprocessed_lemmas.append(lemma_with_accent.capitalize())
+            preprocessed_lemmas.append(lemma_with_accent.lower())
+            
+            if lemma_with_accent != lemma_without_accent:
+                preprocessed_lemmas.append(lemma_without_accent.capitalize())
+                preprocessed_lemmas.append(lemma_without_accent.lower())
         else:
-            preprocessed_lemmas.append(lemma.lower())
+            preprocessed_lemmas.append(lemma_with_accent)
     
     return ' '.join(preprocessed_lemmas)
 
@@ -74,9 +83,10 @@ def puzzle(puzzle_id, answer):
 
     similarity_scores = compare_responses(answer, answers_options)
     for i, score in enumerate(similarity_scores):
-        if score >= coeficiente_de_similaridade_min:
-            print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
-            return True, clue
-        print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
+        percentage_score = score * 100
+        if percentage_score >= coeficiente_de_similaridade_min:
+            print(f"Similaridade entre a resposta dada e a opção {i+1}: {percentage_score:.2f}%")
+            return True, clue, percentage_score
+        print(f"Similaridade entre a resposta dada e a opção {i+1}: {percentage_score:.2f}%")
 
-    return False, None
+    return False, None, percentage_score

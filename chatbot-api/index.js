@@ -54,7 +54,6 @@ client.on('message', (message) => {
     client.sendMessage(message.from, steps[6]['question'])
   }
 
-  if (message.body !== "" || message.body !== " "){
     const qValue = message.body.match(/q=(.*?)(?:,|$)/)[1];
     const rValue = message.body.match(/r=(.*?)(?:,|$)/)[1];
 
@@ -79,9 +78,6 @@ client.on('message', (message) => {
       client.sendMessage(message.from, "Enviar mensagem nesse padrão: ")
       client.sendMessage(message.from, "q=<NUMERO_DA_QUESTAO>,r=<SUA_RESPOSTA>")
     }
-  }else {
-    client.sendMessage(message.from, "Mensagem invalida ou vazia")
-  }
 });
 
 client.initialize();

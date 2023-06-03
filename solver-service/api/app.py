@@ -11,11 +11,11 @@ def endpoint():
     # Obtém o campo 'answer' como uma string
     answer = str(data['answer'])
 
-    result, clue = puzzle(puzzle_id, answer)
+    result, clue, percentage_score = puzzle(puzzle_id, answer)
 
     if result is True:
-        return {'message': {'clue': clue}, 'status': True}
+        return {'message': {'clue': clue}, 'status': True, 'percentage': percentage_score}
     else:
-        message = 'Answer is incorrect'
+        message = { 'message': 'Resposta incorreta', 'percentage': percentage_score }
         response = make_response(message, 404)
         return response
