@@ -76,10 +76,14 @@ client.initialize();
 
 
 app.get('/auth', (req, res) => {
+  client.on('qr', (qr) => {
   const qrCode = new QRCode(qr);
   const qrCodeSvg = qrCode.svg();
   res.setHeader('Content-Type', 'image/svg+xml');
   res.send(qrCodeSvg);
+
+});
+  
 });
 
 app.get('/iniciar', (req, res) => {
