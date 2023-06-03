@@ -5,7 +5,7 @@ const app = express();
 const qrcode = require('qrcode');
 
 const steps = require('./steps');
-const qrcode = require('qrcode-terminal');
+const qrcodeT = require('qrcode-terminal');
 const { default: axios } = require('axios');
 
 
@@ -26,7 +26,7 @@ client.on('qr', async (qr) => {
   // const qrCodeSvg = qrCode.svg();
   // res.setHeader('Content-Type', 'image/svg+xml');
   // res.send(qrCodeSvg);
-  qrcode.generate(qr, { small: true });
+  qrcodeT.generate(qr, { small: true });
 
 });
 
