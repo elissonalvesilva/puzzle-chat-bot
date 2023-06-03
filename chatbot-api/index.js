@@ -8,7 +8,7 @@ const { default: axios } = require('axios');
 
 
 const solverServiceURL = "https://solver-service.onrender.com"
-
+let qrCodeGenerated = ''
 const client = new Client({
     authStrategy: new LocalAuth()
 });
@@ -17,14 +17,15 @@ client.on('ready', () => {
   console.log('Cliente está pronto!');
 });
 
-// client.on('qr', (qr) => {
-//   // const qrCode = new QRCode(qr);
-//   // const qrCodeSvg = qrCode.svg();
-//   // res.setHeader('Content-Type', 'image/svg+xml');
-//   // res.send(qrCodeSvg);
-//   qrcode.generate(qr, { small: true });
+client.on('qr', (qr) => {
+  qrCodeGenerated = qr;
+  // const qrCode = new QRCode(qr);
+  // const qrCodeSvg = qrCode.svg();
+  // res.setHeader('Content-Type', 'image/svg+xml');
+  // res.send(qrCodeSvg);
+  qrcode.generate(qr, { small: true });
 
-// });
+});
 
 client.on('message', (message) => {
   if(message.body === "iniciar") {
@@ -76,14 +77,13 @@ client.initialize();
 
 
 app.get('/auth', (req, res) => {
-  client.on('qr', (qr) => {
-  const qrCode = new QRCode(qr);
+  if(qrCodeGenerated === '') {
+    res.send({"message": "not generated"});
+  }
+  const qrCode = new QRCode(qrCodeGenerated);
   const qrCodeSvg = qrCode.svg();
   res.setHeader('Content-Type', 'image/svg+xml');
   res.send(qrCodeSvg);
-
-});
-  
 });
 
 app.get('/iniciar', (req, res) => {
