@@ -1,6 +1,6 @@
 const express = require('express');
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode-svg');
 const app = express();
 
 const client = new Client({
@@ -17,9 +17,13 @@ client.on('message', (message) => {
 
 client.initialize();
 
+
 app.get('/auth', (req, res) => {
   client.on('qr', (qr) => {
-    qrcode.generate(qr, { small: true });
+    const qrCode = new QRCode(qr);
+    const qrCodeSvg = qrCode.svg();
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.send(qrCodeSvg);
   });
 });
 
