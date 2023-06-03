@@ -1,6 +1,7 @@
+const express = require('express');
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-
+const app = express();
 
 const client = new Client({
     authStrategy: new LocalAuth()
