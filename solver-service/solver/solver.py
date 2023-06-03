@@ -30,33 +30,42 @@ def compare_responses(response, response_options):
 
 def get_puzzle(puzzle_id):
     puzzles = [
-        {
-            'id': 1,
-            'puzzle': 'Em uma terra vasta e cheia de vida, '
-                    'Há habitantes cuja sede é tão intensa e aflita. '
-                    'Buscam nas vinhas de Babilônia seu elixir, '
-                    'Ignorando que nele há um veneno aferir. '
-                    'O líquido rubro escorre em suas gargantas, '
-                    'Um engano mortal, em busca de suas ansiadas jantas. '
-                    'Quem são esses seres, cegos pela luxúria? '
-                    'Deixe-me dizer, sua identidade é obscura.',
-            'answers': [
-                'Humanos',
-                'Bebedores de vinho',
-                'Babilônios',
-                'Viciados em álcool',
-                'Consumidores imprudentes',
-                'Aqueles que ignoram os perigos',
-                'Amantes da bebida',
-                'Pessoas sedentas',
-                'Adoradores de Dionísio (deus do vinho na mitologia grega)',
-                'Festeiros imprudentes',
-                'Vinho da Babilônia'
-            ],
-            'clue': 'Eu te amo'
-        }
+    {
+        "id": 1,
+        "answers": ["Vinho da babilônia", "Vinho da prostituição", "vinho da babilonia", "vinho da babilônia"],
+        "clue": "",
+    },
+    {
+        "id": 2,
+        "answer": ["Mensagens angelicais", "Palavra de Deus"],
+        "clue": "",
+    },
+    {
+        "id": 3,
+        "answer": ["morada de demônios, espíritos de demônios e feitiçaria", "Morada de demonios, espiritos de demonios e feiticaria"],
+        "clue": "",
+    },
+    {
+        "id": 4,
+        "answer": ["A doutrina da imortalidade da alma", "imortalidade da alma", "Reencarnação", "Reencarnacao"],
+        "clue": "",
+    },
+    {
+        "id": 5,
+        "answer": ["constantino", "Constantino", "Imperador constantino", "imperador constantino"],
+        "clue": "",
+    },
+    {
+        "id": 6,
+        "answer": ["Sol", "Apolo", "Deus do Sol", "Deus sol"],
+        "clue": "",
+    },
+    {
+        "id": 7,
+        "answer": ["apocalipse 18", "apocalipse18", "ap 18", "ap18"],
+        "clue": "",
+    }
     ]
-
     for puzzle in puzzles:
         if puzzle['id'] == puzzle_id:
             return puzzle['answers'], puzzle['clue']
@@ -71,10 +80,8 @@ def puzzle(puzzle_id, answer):
     similarity_scores = compare_responses(answer, answers_options)
     for i, score in enumerate(similarity_scores):
         if score >= coeficiente_de_similaridade_min:
+            print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
             return True, clue
         print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
 
     return False, None
-
-    # for i, score in enumerate(similarity_scores):
-    #     print(f"Similaridade entre a resposta dada e a opção {i+1}: {score}")
