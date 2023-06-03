@@ -14,7 +14,7 @@ def endpoint():
     result, clue = puzzle(puzzle_id, answer)
 
     if result is True:
-        return {'message': {'clue': clue}}
+        return {'message': {'clue': clue}, 'status': True}
     else:
         message = 'Answer is incorrect'
         response = make_response(message, 404)
