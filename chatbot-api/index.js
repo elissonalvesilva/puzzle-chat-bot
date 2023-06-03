@@ -3,6 +3,11 @@ const { Client, LocalAuth } = require('whatsapp-web.js');
 const QRCode = require('qrcode-svg');
 const app = express();
 const steps = require('./steps');
+const qrcode = require('qrcode-terminal');
+const { default: axios } = require('axios');
+
+
+const solverServiceURL = "https://solver-service.onrender.com"
 
 const client = new Client({
     authStrategy: new LocalAuth()
@@ -12,28 +17,58 @@ client.on('ready', () => {
   console.log('Cliente está pronto!');
 });
 
-client.on('message', (message) => {
+client.on('qr', (qr) => {
+  // const qrCode = new QRCode(qr);
+  // const qrCodeSvg = qrCode.svg();
+  // res.setHeader('Content-Type', 'image/svg+xml');
+  // res.send(qrCodeSvg);
+  qrcode.generate(qr, { small: true });
 
+});
+
+client.on('message', (message) => {
   if(message.body === "iniciar") {
-    client.sendMessage(steps[0]['question'])
+    client.sendMessage(message.from, steps[0]['question'])
   }
-  if(message.body === 2) {
-    client.sendMessage(steps[1]['question'])
+
+  if(message.body == "2") {
+    client.sendMessage(message.from, steps[1]['question'])
   }
-  if(message.body === 3) {
-    client.sendMessage(steps[2]['question'])
+  if(message.body == "3") {
+    client.sendMessage(message.from, steps[2]['question'])
   }
-  if(message.body === 4) {
-    client.sendMessage(steps[3]['question'])
+  if(message.body == "4") {
+    client.sendMessage(message.from, steps[3]['question'])
   }
-  if(message.body === 5) {
-    client.sendMessage(steps[4]['question'])
+  if(message.body == "5") {
+    client.sendMessage(message.from, steps[4]['question'])
   }
-  if(message.body === 6) {
-    client.sendMessage(steps[5]['question'])
+  if(message.body == "6") {
+    client.sendMessage(message.from, steps[5]['question'])
   }
-  if(message.body === 7) {
-    client.sendMessage(steps[6]['question'])
+  if(message.body == "7") {
+    client.sendMessage(message.from, steps[6]['question'])
+  }
+
+
+  const pattern = /1,r=(.*)/;
+  const correspondence = message.body.match(pattern)
+  if (correspondence) {
+    const puzzleId = correspondence[0]
+    const answer = correspondence[1];
+    axios.post(`${solverServiceURL}/puzzle`, {
+      puzzle_id: puzzleId,
+      answer,
+    }).then((resp) => {
+      client.sendMessage(message.from, "Resposta correta")
+      console.log(resp.data)
+    }).catch((err) => {
+      console.log(err);
+      client.sendMessage(message.from, "Resposta incorreta")
+    })
+
+  }else {
+    client.sendMessage(message.from, "Mensagem invalida ou vazia")
   }
 });
 
@@ -41,12 +76,10 @@ client.initialize();
 
 
 app.get('/auth', (req, res) => {
-  client.on('qr', (qr) => {
-    const qrCode = new QRCode(qr);
-    const qrCodeSvg = qrCode.svg();
-    res.setHeader('Content-Type', 'image/svg+xml');
-    res.send(qrCodeSvg);
-  });
+  const qrCode = new QRCode(qr);
+  const qrCodeSvg = qrCode.svg();
+  res.setHeader('Content-Type', 'image/svg+xml');
+  res.send(qrCodeSvg);
 });
 
 app.get('/iniciar', (req, res) => {
