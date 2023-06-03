@@ -79,11 +79,12 @@ client.initialize();
 app.get('/auth', (req, res) => {
   if(qrCodeGenerated === '') {
     res.send({"message": "not generated"});
+  }else {
+    const qrCode = new QRCode(qrCodeGenerated);
+    const qrCodeSvg = qrCode.svg();
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.send(qrCodeSvg);
   }
-  const qrCode = new QRCode(qrCodeGenerated);
-  const qrCodeSvg = qrCode.svg();
-  res.setHeader('Content-Type', 'image/svg+xml');
-  res.send(qrCodeSvg);
 });
 
 app.get('/iniciar', (req, res) => {
