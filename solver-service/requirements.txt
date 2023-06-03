@@ -2,3 +2,4 @@ Flask
 Gunicorn
 spacy
 scikit-learn
+unidecode
