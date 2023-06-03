@@ -17,14 +17,14 @@ client.on('ready', () => {
   console.log('Cliente está pronto!');
 });
 
-client.on('qr', (qr) => {
-  // const qrCode = new QRCode(qr);
-  // const qrCodeSvg = qrCode.svg();
-  // res.setHeader('Content-Type', 'image/svg+xml');
-  // res.send(qrCodeSvg);
-  qrcode.generate(qr, { small: true });
+// client.on('qr', (qr) => {
+//   // const qrCode = new QRCode(qr);
+//   // const qrCodeSvg = qrCode.svg();
+//   // res.setHeader('Content-Type', 'image/svg+xml');
+//   // res.send(qrCodeSvg);
+//   qrcode.generate(qr, { small: true });
 
-});
+// });
 
 client.on('message', (message) => {
   if(message.body === "iniciar") {
