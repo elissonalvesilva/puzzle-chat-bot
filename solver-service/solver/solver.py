@@ -41,33 +41,33 @@ def get_puzzle(puzzle_id):
     puzzles = [
     {
         "id": 1,
-        "answers": ["Vinho da babilônia", "Vinho da prostituição", "vinho da babilonia", "vinho da babilônia"],
-        "clue": "Caiu, caiu a grande Babilônia",
+        "answers": ["chifre pequeno", "roma", "roma papal"],
+        "clue": "Fé é a vitória",
     },
     {
         "id": 2,
-        "answers": ["Mensagens angelicais","mensagens angelicais", "mensagens Angelicais", "Palavra de Deus"],
-        "clue": "Jamais se levantará",
+        "answers": ["marca da besta","marca do inimigo", "insignia da besta", "sistema maligno", "testa", "adoração a besta"],
+        "clue": "Sim, fé",
     },
     {
         "id": 3,
-        "answers": ["morada de demônios, espíritos de demônios e feitiçaria", "Morada de demonios, espiritos de demonios e feiticaria"],
-        "clue": "E quem adorar",
+        "answers": ["sábado", "dia do senhor", "Sábado do senhor", "dia de adoração"],
+        "clue": "sempre tem poder",
     },
     {
         "id": 4,
-        "answers": ["A doutrina da imortalidade da alma", "imortalidade da alma", "Reencarnação", "Reencarnacao"],
-        "clue": "ao Deus verdadeiro",
+        "answers": ["fé", "resistência espiritual", "fé inabalável", "espírito resiliente"],
+        "clue": "Fé é a",
     },
     {
         "id": 5,
-        "answers": ["constantino", "Constantino", "Imperador constantino", "imperador constantino"],
-        "clue": "sua marca",
+        "answers": ["Eis que a sua alma está orgulhosa, não é reta nele; mas o justo pela sua fé viverá.", "o justo viverá pela fé", "...o justo viverá pela fé", '"o justo viverá pela fé"', "habacuque 2:4"],
+        "clue": "vitória",
     },
     {
         "id": 6,
-        "answers": ["Sol", "Apolo", "Deus do Sol", "Deus sol"],
-        "clue": "receberá",
+        "answers": ["intolerancia religiosa", "intolerância religiosa", "Intolerancia Religiosa"],
+        "clue": "ao mundo irá vencer",
     }
     ]
     for puzzle in puzzles:

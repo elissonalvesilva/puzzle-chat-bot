@@ -1,94 +1,121 @@
 const steps = [
   {
     id: 1,
-    question: `No império antigo da Babilônia,
-    Um líquido peculiar flui com harmonia.
-    Mas cuidado, ó habitantes da terra,
-    Um perigo oculto, uma triste guerra.
-    Beberão desse líquido vermelho,
-    Em suas taças, um veneno conselho.
-    Tão doce como mel, mas mortífero,
-    Um gole dele e lhe findará por inteiro.
-    Qual é esse liquido maldito, meu amigo?
-    Um enigma enigmático, um destino sombrio.
-    Pense bem antes de levantar a taça,
-    O desafio é descobrir qual é a ameaça.`,
+    question: `Sou um poder astuto e maligno,
+    Usurpo a autoridade divina, o destino.
+    Exijo lealdade, imponho minha vontade,
+    E introduzo um sistema de adoração de falsidade.
+    
+    Pequeno em tamanho, mas imenso em influência,
+    Causo discórdia, dor e desavença.
+    Sou o símbolo de engano e desilusão,
+    Minha resposta é a chave desta questão.
+    
+    Quem sou eu, você consegue perceber?
+    Preste atenção, tente responder.
+    Entre mitos e lendas, meu nome está escrito,
+    Revelando minha verdadeira face, sem conflito.`,
   },
   {
     id: 2,
-    question: `Uma força oculta paira no ar,
-    Um veneno que quer nos dominar.
-    Mas há um escudo, uma defesa sutil,
-    Contra o mal que nos faz fraquejar.
-    Não é físico, nem de aço ou ferro,
-    Mas uma armadura que nos mantém inteiros.
-    Nas páginas sagradas, seu poder se esconde,
-    Proteção contra o veneno dos monstros do além.
-    Leia e estude com atenção,
-    Encontre a resposta nessa lição.
-    Qual é a proteção contra esse veneno espiritual,
-    Que nos guia na jornada celestial?`
+    question: `No alto, um anjo ressoa sua voz clara,
+    Alertando com ardor sobre uma besta avara.
+    Quem ousar adorá-la e sua imagem louvar,
+    Sentirá a ira divina, não poderá escapar.
+    
+    Uma marca sinistra, insígnia tenebrosa,
+    Na testa ou na mão, ela se deposita orgulhosa.
+    Quem a receber, cuidado, pois sofrerá,
+    O vinho da ira de Deus, não há como evitar.
+    
+    O aviso é dado, a questão está posta,
+    O desafio é seu, responda qual é a resposta.
+    Em tempos de incerteza, treva e guerra,
+    Diga-me agora, qual é a marca que se espera?`
   },
   {
     id: 3,
-    question: `Onde demônios residem e se ocultam,
-    Onde espíritos malignos dançam e relutam.
-    Nas sombras da noite, seu reino está,
-    Uma ferramenta de Satanás a enganar.
-    Palavras de medo, feitiçaria e aflição,
-    Usadas para semear a ilusão.
-    Indicam seu poder, sua vil trama,
-    Enganando almas, trazendo lama.
-    Nas entrelinhas, veja além do véu,
-    A resposta está lá, não se iluda, cruel.
-    Descubra o termo que revela a traição,
-    A atividade sombria de sua sedução.
-    Quais são essas expressões, então?
-    Um enigma ardiloso, uma questão de razão.
-    Pense bem e desvende esse mistério,
-    E proteja-se do engano e do cemitério.`
+    question: `No clímax da batalha, a controvérsia final,
+    Entre o bem e o mal, um confronto magistral.
+    Um povo fiel, guardião dos mandamentos de Deus,
+    Vive pela fé em Jesus, um caminho que os conduz.
+    
+    Neste conflito ardente, onde a lealdade se entrelaça,
+    A adoração é a chave, o centro da praça.
+    No coração deste ato crucial e supremo,
+    Reside um elemento, desvendá-lo é o seu tema.
+    
+    O que está oculto, envolto em mistério e segredo,
+    Define o destino, o desfecho deste enredo.
+    A resposta repousa nas palavras que ecoam,
+    Então me diga agora, qual é o que falta que ecoa?
+    
+    Encontre o termo que se encaixa nessa cena,
+    E desvende o enigma, a resposta pequena.
+    No embate final, no palco desta história,
+    Revela o elemento que trará glória ou vitória.`
   },
   {
     id: 4,
-    question: `Em tempos antigos, um engano se espalhou,
-    Na Babilônia, a ilusão se mostrou.
-    Um pilar das decepções, sutil e traiçoeiro,
-    Na ideia da morte, um falso tesoureiro.
-    A alma imortal, diziam, em sua crença,
-    Preparando o caminho para a influência.
-    Do espiritualismo, um poder maligno,
-    Uma armadilha ardilosa, um destino sinistro.
-    Desvende agora esse enigma ancestral,
-    A resposta está próxima, em tom celestial.
-    Qual é esse conceito distorcido, meu caro,
-    Que leva à influência prejudicial e amargo?
-    Reflete e decifra, com perspicácia e clareza,
-    Proteja-se do engano, da falsa natureza.
-    Pense e responda, revelando a verdade,
-    E escape da armadilha com sagacidade.`
+    question: `É "a força interior" de Jesus,
+    Que em nossos corações se põe em cruz.
+    Nos permite adorar Cristo, supremo ser,
+    E nos dá coragem para suportar, não ceder.
+    
+    Quando a marca da besta surgir, imponente,
+    Esta virtude nos sustenta, firmemente.
+    É um presente divino, uma dádiva de Deus,
+    Nos mantém íntegros, mesmo sob ataques seus.
+    
+    No momento crucial, quando a provação chegar,
+    Essa força interna irá nos amparar.
+    Então, descubra agora, desvende o enigma,
+    Qual é a expressão que nos anima?
+    
+    Reflete a essência de Jesus em nós,
+    Capaz de suportar, mesmo sob ferozes nós.
+    Quando a marca se concretizar, o segredo estará revelado,
+    Diga-me, agora, qual é o termo esperado?`
   },
   {
     id: 5,
-    question: `"Sou um nome que representa um imperador romano,
-    Comandei no século IV, Constantino é meu plano.
-    Mudanças e reformas fiz em meu reinado,
-    Um império fortalecido foi meu legado.
+    question: `Nos bons tempos e nos maus tempos,
+    Quando Deus parece próximo ou distante,
+    Não importa a circunstância, o momento,
+    Pois, o que importa é o segredo relevante.
     
-    Minha primeira sílaba é uma constante matemática,
-    Para descobrir meu nome, pense com tática.
-    Minha segunda sílaba tem gosto de café,
-    Encontrar minha resposta não é tão difícil, você vê.
+    Nas palavras sagradas, a resposta está,
+    No biblia, o versículo a desvendar.
+    Uma expressão poderosa, que nos faz entender.
     
-    Quem sou eu, adivinhe, sem vacilar?
-    Um imperador famoso, o nome é Constantino, pode apostar!"`
+    Não importa a aparência, o estado emocional,
+    A chave está em um frase, um ato fundamental.
+    Em todas as situações, essa é a essência,
+    Revelando a verdade, a resposta em evidência.
+    
+    O que mantém a chama acesa, a esperança viva,
+    Quando Deus parece próximo ou distante, ativa,
+    Diga-me agora, sem hesitação,
+    Qual é a resposta, essa frase de salvação?`
   },
   {
     id: 6,
-    question: `Grécia antiga, mas quem sou eu, uma divindade celeste?
-    Eu sou o brilho radiante que ilumina os dias, a fonte de calor e vida na Terra.
-    Adorado por muitos, eu testemunhei impérios crescerem e desaparecerem.
-    Embora minha adoração tenha diminuído ao longo dos séculos, meu poder permanece incontestável.
-    Quem sou eu?`
+    question: `Desvendar este enigma requer atenção,
+    Um código oculto está em ação.
+    Vamos decifrar, com astúcia e perspicácia,
+    A mensagem escondida que traz desavença e discórdia.
+    
+    Código 1: 9-14-20-15-12-5-18-1-14-3-9-1
+    Código 2: 18-5-12-9-7-9-15-19-1
+    
+    Um olhar minucioso revelará,
+    A mensagem codificada a desvendar.
+    Uma triste realidade que aflige o sistema.
+    
+    Primeiro código, palavras se formam,
+    Segundo código, uma verdade transforma.
+    Junte as peças e encontrará a resposta,
+    Uma expressão que nos causa desgosto.`
   }
 ]
 
