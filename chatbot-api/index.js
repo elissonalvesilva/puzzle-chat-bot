@@ -155,7 +155,7 @@ client.on('message', async (message) => {
         client.sendMessage(message.from, resp.data.message.clue);
       }).catch((err) => {
         console.log(err);
-        client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${err.data?.percentage}`)
+        client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${err.response.data?.percentage}`)
       })
   }
 
