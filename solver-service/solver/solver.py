@@ -41,7 +41,7 @@ def get_puzzle(puzzle_id):
     puzzles = [
     {
         "id": 1,
-        "answers": ["chifre pequeno", "roma", "roma papal"],
+        "answers": ["Valdenses", "Povo das montanhas", "Habitantes do Piemonte", "Cristãos perseguidos"],
         "clue": "Fé é a vitória",
     },
     {

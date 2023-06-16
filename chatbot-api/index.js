@@ -163,6 +163,24 @@ client.on('message', async (message) => {
 
 client.initialize();
 
+app.get('/puzzle', (req, res) => {
+  const puzzleId = 2;
+      const answer = "besta ";
+      axios.post(`${solverServiceURL}/puzzle`, {
+        puzzle_id: puzzleId,
+        answer,
+      }).then(async (resp) => {
+        // client.sendMessage(message.from, "Resposta correta")
+        console.log(resp.data)
+        res.send(resp.data)
+        // await updateCurrentPuzzleUserByPhoneNumber(message.from, user.current_puzzle+1);
+        // client.sendMessage(message.from, resp.data.message.clue);
+      }).catch((err) => {
+        console.log(err);
+        res.send(err)
+        // client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${err.response.data?.percentage}`)
+      })
+})
 
 app.get('/auth', (req, res) => {
   if(qrCodeGenerated === '') {

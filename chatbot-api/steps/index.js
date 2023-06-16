@@ -1,20 +1,30 @@
 const steps = [
   {
     id: 1,
-    question: `Sou um poder astuto e maligno,
-    Usurpo a autoridade divina, o destino.
-    Exijo lealdade, imponho minha vontade,
-    E introduzo um sistema de adoração de falsidade.
+    question: `Nas altas montanhas do Piemonte,
+    No século XV, uma história de confronto.
+    Valdenses fiéis, perseguidos sem piedade,
+    Pela igreja que buscava sua lealdade.
     
-    Pequeno em tamanho, mas imenso em influência,
-    Causo discórdia, dor e desavença.
-    Sou o símbolo de engano e desilusão,
-    Minha resposta é a chave desta questão.
+    Em 1488, no Vale de Loyse, a tristeza ecoou,
+    Pela fé, foram brutalmente destruídos.
+    Séculos depois, mais uma vez o terror se instaurou,
+    Quando o duque enviou seus soldados resolutos.
     
-    Quem sou eu, você consegue perceber?
-    Preste atenção, tente responder.
-    Entre mitos e lendas, meu nome está escrito,
-    Revelando minha verdadeira face, sem conflito.`,
+    Abril de 1655, às 4h da manhã, um sinal soou,
+    O massacre começou, a morte se avolumou.
+    Mais de 4.000 vítimas, um destino cruel,
+    A história se repetindo, um ciclo cruel.
+    
+    A profecia da marca da besta, um alerta profundo,
+    Uma cadeia maligna, perseguição que se esfunda.
+    Busca conformidade, crenças impondo,
+    Mas Deus terá um grupo que resiste, se recusando.
+    
+    Qual é o nome desse povo valente,
+    Que enfrentou a opressão, sua fé fervente?
+    Um desafio para aqueles que sabem,
+    Quem são essas pessoas que jamais se curvam?`,
   },
   {
     id: 2,
