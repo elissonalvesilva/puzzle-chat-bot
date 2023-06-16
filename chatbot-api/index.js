@@ -111,7 +111,7 @@ client.on('message', async (message) => {
       await createUserByPhoneNumber(message.from);
     }
   
-    if(message.body === "iniciar") {
+    if(message.body.toLowerCase() === "iniciar") {
       client.sendMessage(message.from, steps[0]['question'])
       await updateCurrentPuzzleUserByPhoneNumber(message.from, 1);
       return
@@ -142,6 +142,7 @@ client.on('message', async (message) => {
       return
     }
 
+    if(user) {
     client.sendMessage(message.from, "Processando a resposta.... :)");
       const puzzleId = user.current_puzzle;
       const answer = message.body;
@@ -155,8 +156,11 @@ client.on('message', async (message) => {
         client.sendMessage(message.from, resp.data.message.clue);
       }).catch((err) => {
         console.log(err);
-        client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${err.response.data?.percentage}`)
+        const percentage = (err.response.data?.percentage * 100).toFixed(2);
+        const formatedPercentage = percentage.toLocaleString('pt-BR');
+        client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${formatedPercentage}%`)
       })
+    }
   }
 
 });
@@ -164,8 +168,8 @@ client.on('message', async (message) => {
 client.initialize();
 
 app.get('/puzzle', (req, res) => {
-  const puzzleId = 2;
-      const answer = "besta ";
+  const puzzleId = 1;
+      const answer = "Cristãos perseguidos";
       axios.post(`${solverServiceURL}/puzzle`, {
         puzzle_id: puzzleId,
         answer,
