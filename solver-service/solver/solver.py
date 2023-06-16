@@ -9,32 +9,31 @@ nlp = spacy.load('pt_core_news_sm')
 def preprocess_text(text):
     doc = nlp(text)
     preprocessed_lemmas = []
-    
+
     for token in doc:
         lemma_with_accent = token.lemma_
         lemma_without_accent = unidecode(lemma_with_accent)
-        
+
         if lemma_with_accent.isalpha():
             preprocessed_lemmas.append(lemma_with_accent.capitalize())
             preprocessed_lemmas.append(lemma_with_accent.lower())
-            
+
             if lemma_with_accent != lemma_without_accent:
                 preprocessed_lemmas.append(lemma_without_accent.capitalize())
                 preprocessed_lemmas.append(lemma_without_accent.lower())
         else:
             preprocessed_lemmas.append(lemma_with_accent)
-    
+
     return ' '.join(preprocessed_lemmas)
 
 def compare_responses(response, response_options):
     preprocessed_response = preprocess_text(response)
     preprocessed_options = [preprocess_text(option) for option in response_options]
-    
+
     vectorizer = TfidfVectorizer()
     response_vectors = vectorizer.fit_transform([preprocessed_response] + preprocessed_options)
-    
     similarity_scores = cosine_similarity(response_vectors[0], response_vectors[1:])[0]
-    
+
     return similarity_scores
 
 def get_puzzle(puzzle_id):
