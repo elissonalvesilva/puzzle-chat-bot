@@ -23,6 +23,10 @@ type UserModel struct {
 	Phone   string `bson:"phone" json:"phone"`
 }
 
+type UsersRanking struct {
+	Users []UserModel
+}
+
 func NewDatabase(db *mongo.Client, dbName string) *MongoDatabase {
 	return &MongoDatabase{
 		dbName: dbName,
@@ -74,22 +78,22 @@ func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
 	return nil
 }
 
-func (d *MongoDatabase) GetAll() (protocols.UsersRanking, error) {
+func (d *MongoDatabase) GetAll() (UsersRanking, error) {
 	options := options.Find().SetSort(bson.D{{Key: "current", Value: 1}})
 
 	cursor, err := d.db.Database(d.dbName).Collection("puzzle_user").Find(context.Background(), bson.D{}, options)
 	if err != nil {
-		return protocols.UsersRanking{}, err
+		return UsersRanking{}, err
 	}
 
 	var users []UserModel
 	err = cursor.All(context.Background(), &users)
 	if err != nil {
 		fmt.Println("Erro ao decodificar os usuários:", err)
-		return protocols.UsersRanking{}, err
+		return UsersRanking{}, err
 	}
 
-	userResponse := protocols.UsersRanking{
+	userResponse := UsersRanking{
 		Users: users,
 	}
 
