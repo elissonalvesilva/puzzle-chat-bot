@@ -4,6 +4,7 @@ import (
 	"fmt"
 	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"sync"
@@ -14,8 +15,8 @@ import (
 
 func WebSocketServer(db *db.Database) {
 	ws := websocket.NewWebSocket(db)
-	fmt.Println("WebSocket Starting")
 	http.HandleFunc("/ws", ws.WebsocketHandler)
+	fmt.Println("WebSocket Starting")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
 
@@ -35,10 +36,10 @@ func WebAPI(db *db.Database) {
 }
 
 func main() {
-	//err := godotenv.Load()
-	//if err != nil {
-	//	panic("Falha ao carregar o arquivo .env")
-	//}
+	err := godotenv.Load()
+	if err != nil {
+		panic("Falha ao carregar o arquivo .env")
+	}
 	app, err := db.NewDB()
 	if err != nil {
 		panic("Falha ao inicializar o aplicativo")
