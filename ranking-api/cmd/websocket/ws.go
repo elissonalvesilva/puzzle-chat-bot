@@ -10,7 +10,7 @@ import (
 
 type WS struct {
 	clients map[*websocket.Conn]bool
-	db      *db.Database
+	db      db.Database
 }
 
 var upgrader = websocket.Upgrader{
@@ -21,7 +21,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func NewWebSocket(db *db.Database) *WS {
+func NewWebSocket(db db.Database) *WS {
 	return &WS{
 		clients: make(map[*websocket.Conn]bool),
 		db:      db,
@@ -30,7 +30,7 @@ func NewWebSocket(db *db.Database) *WS {
 
 func (ws *WS) WebsocketHandler(w http.ResponseWriter, r *http.Request) {
 	connection, _ := upgrader.Upgrade(w, r, nil)
-	
+
 	ws.clients[connection] = true // Save the connection using it as a key
 
 	for {

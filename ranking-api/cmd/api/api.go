@@ -8,7 +8,7 @@ import (
 )
 
 type API struct {
-	database *db.Database
+	database db.Database
 }
 
 type UserPostParam struct {
@@ -22,7 +22,7 @@ type UserUpdateCurrent struct {
 	Phone   string `json:"phone"`
 }
 
-func NewAPI(db *db.Database) *API {
+func NewAPI(db db.Database) *API {
 	return &API{
 		database: db,
 	}
@@ -47,7 +47,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 		Current: user.Current,
 	}
 
-	if err = api.database.Create(&userToCreate); err != nil {
+	if err = api.database.Create(userToCreate); err != nil {
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
