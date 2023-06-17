@@ -43,7 +43,7 @@ func (d *MongoDatabase) GetByPhone(phone string) (protocols.UserGetResponse, err
 }
 
 func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
-	filter := bson.M{"id": id}
+	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{"name": user.Name, "current": user.Current, "phone": user.Phone}}
 
 	_, err := d.db.Database(d.dbName).Collection("puzzle_user").UpdateOne(context.Background(), filter, update)

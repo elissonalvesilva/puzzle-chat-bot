@@ -81,6 +81,7 @@ func (api *API) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "OK")
 }
 
 func (api *API) Clean(w http.ResponseWriter, r *http.Request) {
