@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api/protocols"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -13,6 +14,13 @@ import (
 type MongoDatabase struct {
 	dbName string
 	db     *mongo.Client
+}
+
+type UserModel struct {
+	Id      string `bson:"_id" json:"_id,omitempty"`
+	Name    string `bson:"name" json:"name"`
+	Current int    `bson:"current" json:"current"`
+	Phone   string `bson:"phone" json:"phone"`
 }
 
 func NewDatabase(db *mongo.Client, dbName string) *MongoDatabase {
@@ -44,8 +52,14 @@ func (d *MongoDatabase) GetByPhone(phone string) (protocols.UserGetResponse, err
 }
 
 func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
-	filter := bson.M{"_id": id}
-	update := bson.M{"$set": bson.M{"name": user.Name, "current": user.Current, "phone": user.Phone}}
+	idToFind, _ := primitive.ObjectIDFromHex(id)
+
+	filter := bson.D{{"_id", idToFind}}
+	update := bson.D{
+		{"$set", bson.D{{"name", user.Name}}},
+		{"$set", bson.D{{"phone", user.Phone}}},
+		{"$set", bson.D{{"current", user.Current}}},
+	}
 
 	resp, err := d.db.Database(d.dbName).Collection("puzzle_user").UpdateOne(context.Background(), filter, update)
 	if err != nil {
@@ -68,7 +82,7 @@ func (d *MongoDatabase) GetAll() (protocols.UsersRanking, error) {
 		return protocols.UsersRanking{}, err
 	}
 
-	var users []protocols.UserGetResponse
+	var users []UserModel
 	err = cursor.All(context.Background(), &users)
 	if err != nil {
 		fmt.Println("Erro ao decodificar os usuários:", err)

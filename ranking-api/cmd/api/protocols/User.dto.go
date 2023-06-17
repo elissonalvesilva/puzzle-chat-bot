@@ -1,5 +1,7 @@
 package protocols
 
+import "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
+
 type UserPostParam struct {
 	Name    string `json:"name"`
 	Current int    `json:"current"`
@@ -12,7 +14,7 @@ type UserGetResponse struct {
 }
 
 type UsersRanking struct {
-	Users []UserGetResponse
+	Users []db.UserModel
 }
 
 type UserUpdateCurrent struct {
