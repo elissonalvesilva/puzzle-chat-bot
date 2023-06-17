@@ -22,7 +22,8 @@ var upgrader = websocket.Upgrader{
 
 func NewWebSocket(db *db.Database) *WS {
 	return &WS{
-		db: db,
+		clients: make(map[*websocket.Conn]bool),
+		db:      db,
 	}
 }
 
