@@ -11,8 +11,8 @@ import (
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/websocket"
 )
 
-func WebSocketServer() {
-	ws := websocket.NewWebSocket()
+func WebSocketServer(db *db.Database) {
+	ws := websocket.NewWebSocket(db)
 
 	http.HandleFunc("/ws", ws.WebsocketHandler)
 	log.Fatal(http.ListenAndServe(":8001", nil))
@@ -41,7 +41,7 @@ func main() {
 	wg := sync.WaitGroup{}
 	wg.Add(1)
 	go func() {
-		WebSocketServer()
+		WebSocketServer(app)
 	}()
 	wg.Wait()
 
