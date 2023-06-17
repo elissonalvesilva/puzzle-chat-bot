@@ -68,14 +68,18 @@ func (d *MongoDatabase) GetAll() (protocols.UsersRanking, error) {
 		return protocols.UsersRanking{}, err
 	}
 
-	var users protocols.UsersRanking
+	var users []protocols.UserGetResponse
 	err = cursor.All(context.Background(), &users)
 	if err != nil {
 		fmt.Println("Erro ao decodificar os usuários:", err)
 		return protocols.UsersRanking{}, err
 	}
 
-	return users, nil
+	userResponse := protocols.UsersRanking{
+		Users: users,
+	}
+
+	return userResponse, nil
 }
 
 func (d *MongoDatabase) DeleteAll() error {
