@@ -59,17 +59,13 @@ func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
 	idToFind, _ := primitive.ObjectIDFromHex(id)
 
 	filter := bson.D{{"_id", idToFind}}
-	update := bson.D{
-		{"$set", bson.D{{"name", user.Name}}},
-		{"$set", bson.D{{"phone", user.Phone}}},
-		{"$set", bson.D{{"current", user.Current}}},
-	}
+	update := bson.M{"$set": bson.M{"name": user.Name, "phone": user.Phone, "current": user.Current}}
 
 	resp, err := d.db.Database(d.dbName).Collection("puzzle_user").UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		return err
 	}
-
+	fmt.Println(resp)
 	if resp.ModifiedCount <= 0 {
 		err = errors.New("user not modified")
 		return err
