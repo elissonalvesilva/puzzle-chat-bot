@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/pkg"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
 	"os"
@@ -16,10 +18,24 @@ func main() {
 	//if err != nil {
 	//	panic("Falha ao carregar o arquivo .env")
 	//}
-	client, err := pkg.NewMongoClient(os.Getenv("DB_HOST")).Client()
+	m := pkg.NewMongoClient(os.Getenv("DB_HOST"))
+	ctxTodo := context.TODO()
+	client, err := m.Client()
 	if err != nil {
-		panic("Falha ao conectar ao db")
+		log.Fatal(err)
 	}
+
+	err = client.Connect(ctxTodo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.Disconnect(ctxTodo)
+	err = client.Ping(ctxTodo, readpref.Primary())
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	app := db.NewDatabase(client, "test")
 	if err != nil {
 		panic("Falha ao inicializar o aplicativo")

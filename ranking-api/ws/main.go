@@ -1,19 +1,34 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/websocket"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/pkg"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
-	client, err := pkg.NewMongoClient(os.Getenv("DB_HOST")).Client()
+	m := pkg.NewMongoClient(os.Getenv("DB_HOST"))
+	ctxTodo := context.TODO()
+	client, err := m.Client()
 	if err != nil {
-		panic("Falha ao conectar ao db")
+		log.Fatal(err)
+	}
+
+	err = client.Connect(ctxTodo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer client.Disconnect(ctxTodo)
+	err = client.Ping(ctxTodo, readpref.Primary())
+	if err != nil {
+		log.Fatal(err)
 	}
 	app := db.NewDatabase(client, "test")
 
