@@ -1,11 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import * as ReactDOM from 'react-dom';
+import AppRanking from './App-ranking';
+import "./reset.css";
+ReactDOM.render(<AppRanking />, document.getElementById('root'))
