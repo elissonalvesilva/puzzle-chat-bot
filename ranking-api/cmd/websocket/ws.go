@@ -1,67 +1,81 @@
 package websocket
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
-	"github.com/gorilla/websocket"
+	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	socketio "github.com/googollee/go-socket.io"
 )
 
-type WS struct {
-	clients map[*websocket.Conn]bool
-	db      db.MongoDatabase
-}
+func GinMiddleware(allowOrigin string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", allowOrigin)
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With")
 
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-	CheckOrigin: func(r *http.Request) bool {
-		return true // Permitir todas as origens (INSECURE)
-	},
-}
+		if c.Request.Method == http.MethodOptions {
+			c.AbortWithStatus(http.StatusNoContent)
+			return
+		}
 
-func NewWebSocket(db db.MongoDatabase) *WS {
-	return &WS{
-		clients: make(map[*websocket.Conn]bool),
-		db:      db,
+		c.Request.Header.Del("Origin")
+
+		c.Next()
 	}
 }
 
-func (ws *WS) WebsocketHandler(w http.ResponseWriter, r *http.Request) {
-	connection, _ := upgrader.Upgrade(w, r, nil)
+func main() {
+	router := gin.New()
 
-	ws.clients[connection] = true // Save the connection using it as a key
+	server := socketio.NewServer(nil)
 
-	for {
-		mt, message, err := connection.ReadMessage()
+	server.OnConnect("/", func(s socketio.Conn) error {
+		s.SetContext("")
+		log.Println("connected:", s.ID())
+		return nil
+	})
 
-		if err != nil || mt == websocket.CloseMessage {
-			break // Exit the loop if the client tries to close the connection or the connection is interrupted
+	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
+		log.Println("notice:", msg)
+		s.Emit("reply", "have "+msg)
+	})
+
+	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
+		s.SetContext(msg)
+		return "recv " + msg
+	})
+
+	server.OnEvent("/", "bye", func(s socketio.Conn) string {
+		last := s.Context().(string)
+		s.Emit("bye", last)
+		s.Close()
+		return last
+	})
+
+	server.OnError("/", func(s socketio.Conn, e error) {
+		log.Println("meet error:", e)
+	})
+
+	server.OnDisconnect("/", func(s socketio.Conn, msg string) {
+		log.Println("closed", msg)
+	})
+
+	go func() {
+		if err := server.Serve(); err != nil {
+			log.Fatalf("socketio listen error: %s\n", err)
 		}
+	}()
+	defer server.Close()
 
-		if string(message) == "refresh" {
-			ranking, err := ws.db.GetAll()
-			if err != nil {
-				fmt.Println(err)
-			}
+	router.Use(GinMiddleware("http://localhost:3000"))
+	router.GET("/socket.io/*any", gin.WrapH(server))
+	router.POST("/socket.io/*any", gin.WrapH(server))
+	router.StaticFS("/public", http.Dir("../asset"))
 
-			response, _ := json.Marshal(ranking)
-			//response := []byte("Mensagem de refresh recebida!")
-			err = connection.WriteMessage(websocket.TextMessage, response)
-			if err != nil {
-				fmt.Println("Falha ao enviar mensagem de resposta:", err)
-			}
-		} else {
-			go ws.handleMessage(message)
-		}
+	if err := router.Run(":8000"); err != nil {
+		log.Fatal("failed run app: ", err)
 	}
-
-	delete(ws.clients, connection) // Removing the connection
-
-	connection.Close()
-}
-
-func (ws *WS) handleMessage(message []byte) {
-	fmt.Println(string(message))
 }

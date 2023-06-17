@@ -1,39 +1,81 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
-	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/websocket"
-	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/pkg"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
-	"os"
+
+	"github.com/gin-gonic/gin"
+
+	socketio "github.com/googollee/go-socket.io"
 )
 
+func GinMiddleware(allowOrigin string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", allowOrigin)
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Content-Length, X-CSRF-Token, Token, session, Origin, Host, Connection, Accept-Encoding, Accept-Language, X-Requested-With")
+
+		if c.Request.Method == http.MethodOptions {
+			c.AbortWithStatus(http.StatusNoContent)
+			return
+		}
+
+		c.Request.Header.Del("Origin")
+
+		c.Next()
+	}
+}
+
 func main() {
-	m := pkg.NewMongoClient(os.Getenv("DB_HOST"))
-	ctxTodo := context.TODO()
-	client, err := m.Client()
-	if err != nil {
-		log.Fatal(err)
-	}
+	router := gin.New()
 
-	err = client.Connect(ctxTodo)
-	if err != nil {
-		log.Fatal(err)
-	}
+	server := socketio.NewServer(nil)
 
-	defer client.Disconnect(ctxTodo)
-	err = client.Ping(ctxTodo, readpref.Primary())
-	if err != nil {
-		log.Fatal(err)
-	}
-	app := db.NewDatabase(client, "test")
+	server.OnConnect("/", func(s socketio.Conn) error {
+		s.SetContext("")
+		log.Println("connected:", s.ID())
+		return nil
+	})
 
-	ws := websocket.NewWebSocket(*app)
-	http.HandleFunc("/ws", ws.WebsocketHandler)
-	fmt.Println("WebSocket Starting")
-	log.Fatal(http.ListenAndServe(":4513", nil))
+	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
+		log.Println("notice:", msg)
+		s.Emit("reply", "have "+msg)
+	})
+
+	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
+		s.SetContext(msg)
+		return "recv " + msg
+	})
+
+	server.OnEvent("/", "bye", func(s socketio.Conn) string {
+		last := s.Context().(string)
+		s.Emit("bye", last)
+		s.Close()
+		return last
+	})
+
+	server.OnError("/", func(s socketio.Conn, e error) {
+		log.Println("meet error:", e)
+	})
+
+	server.OnDisconnect("/", func(s socketio.Conn, msg string) {
+		log.Println("closed", msg)
+	})
+
+	go func() {
+		if err := server.Serve(); err != nil {
+			log.Fatalf("socketio listen error: %s\n", err)
+		}
+	}()
+	defer server.Close()
+
+	router.Use(GinMiddleware("http://localhost:3000"))
+	router.GET("/socket.io/*any", gin.WrapH(server))
+	router.POST("/socket.io/*any", gin.WrapH(server))
+	router.StaticFS("/public", http.Dir("../asset"))
+
+	if err := router.Run(":8000"); err != nil {
+		log.Fatal("failed run app: ", err)
+	}
 }
