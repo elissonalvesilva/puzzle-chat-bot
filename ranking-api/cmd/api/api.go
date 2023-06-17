@@ -35,7 +35,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Err to decode", http.StatusBadRequest)
 		return
 	}
-
+	fmt.Println(user)
 	if ok := api.database.ExistsPhone(user.Phone); ok {
 		http.Error(w, "Usuário Já cadastrado", http.StatusBadRequest)
 		return
