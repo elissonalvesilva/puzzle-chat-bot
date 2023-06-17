@@ -47,7 +47,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 		Current: user.Current,
 	}
 
-	if err := api.database.Create(userToCreate); err != nil {
+	if err = api.database.Create(userToCreate); err != nil {
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
