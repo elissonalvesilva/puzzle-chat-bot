@@ -87,6 +87,17 @@ func (db *Database) DeleteAll() error {
 	return nil
 }
 
+func (db *Database) GetAll() (*[]Ranking, error) {
+	var ranking []Ranking
+
+	result := db.DB.Order("current").Find(&ranking)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &ranking, nil
+}
+
 func (db *Database) AutoMigrateTables() error {
 	err := db.DB.AutoMigrate(&Ranking{})
 	if err != nil {

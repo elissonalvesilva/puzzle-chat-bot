@@ -1,6 +1,7 @@
 package websocket
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"github.com/gorilla/websocket"
@@ -39,7 +40,21 @@ func (ws *WS) WebsocketHandler(w http.ResponseWriter, r *http.Request) {
 			break // Exit the loop if the client tries to close the connection or the connection is interrupted
 		}
 
-		go handleMessage(message)
+		if string(message) == "refresh" {
+			ranking, err := ws.db.GetAll()
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			response, _ := json.Marshal(ranking)
+			//response := []byte("Mensagem de refresh recebida!")
+			err = connection.WriteMessage(websocket.TextMessage, response)
+			if err != nil {
+				fmt.Println("Falha ao enviar mensagem de resposta:", err)
+			}
+		} else {
+			go ws.handleMessage(message)
+		}
 	}
 
 	delete(ws.clients, connection) // Removing the connection
@@ -47,6 +62,6 @@ func (ws *WS) WebsocketHandler(w http.ResponseWriter, r *http.Request) {
 	connection.Close()
 }
 
-func handleMessage(message []byte) {
+func (ws *WS) handleMessage(message []byte) {
 	fmt.Println(string(message))
 }
