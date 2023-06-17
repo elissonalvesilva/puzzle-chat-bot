@@ -6,14 +6,10 @@ import (
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/websocket"
 	"log"
 	"net/http"
-	"sync"
 )
 
 func WebSocketServer(db *db.Database) {
-	ws := websocket.NewWebSocket(db)
-	http.HandleFunc("/ws", ws.WebsocketHandler)
-	fmt.Println("WebSocket Starting")
-	log.Fatal(http.ListenAndServe(":4513", nil))
+
 }
 
 func main() {
@@ -27,11 +23,8 @@ func main() {
 		panic("Falha ao inicializar o migration")
 	}
 
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	go func() {
-		WebSocketServer(app)
-	}()
-
-	wg.Wait()
+	ws := websocket.NewWebSocket(app)
+	http.HandleFunc("/ws", ws.WebsocketHandler)
+	fmt.Println("WebSocket Starting")
+	log.Fatal(http.ListenAndServe(":4513", nil))
 }
