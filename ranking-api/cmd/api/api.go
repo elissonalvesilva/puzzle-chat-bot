@@ -33,6 +33,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 	var user UserPostParam
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Err to decode", http.StatusBadRequest)
 		return
 	}
@@ -49,6 +50,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err = api.database.Create(userToCreate); err != nil {
+		fmt.Println(err)
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
@@ -73,6 +75,7 @@ func (api *API) Update(w http.ResponseWriter, r *http.Request) {
 		Name:    userRanking.Name,
 	}
 	if err := api.database.Update(userRanking.Id, userToUpdate); err != nil {
+		fmt.Println(err)
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
@@ -92,12 +95,14 @@ func (api *API) Clean(w http.ResponseWriter, r *http.Request) {
 func (api *API) Ranking(w http.ResponseWriter, r *http.Request) {
 	users, err := api.database.GetAll()
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
 
 	jsonData, err := json.Marshal(users)
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "Erro ao converter para JSON", http.StatusInternalServerError)
 		return
 	}
