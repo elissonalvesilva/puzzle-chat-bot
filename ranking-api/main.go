@@ -9,15 +9,7 @@ import (
 	"sync"
 
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
-	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/websocket"
 )
-
-func WebSocketServer(db *db.Database) {
-	ws := websocket.NewWebSocket(db)
-	http.HandleFunc("/ws", ws.WebsocketHandler)
-	fmt.Println("WebSocket Starting")
-	log.Fatal(http.ListenAndServe(":8001", nil))
-}
 
 func WebAPI(db *db.Database) {
 	router := mux.NewRouter()
@@ -50,10 +42,7 @@ func main() {
 	}
 
 	wg := sync.WaitGroup{}
-	wg.Add(2)
-	go func() {
-		WebSocketServer(app)
-	}()
+	wg.Add(1)
 
 	go func() {
 		WebAPI(app)
