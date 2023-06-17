@@ -19,7 +19,7 @@ func NewMongoClient(uri string) *MongoClient {
 func (m *MongoClient) Client() (*mongo.Client, error) {
 	return mongo.NewClient(options.Client().SetAuth(
 		options.Credential{
-			Username: os.Getenv("DB_USERNAME"),
+			Username: os.Getenv("DB_USER"),
 			Password: os.Getenv("DB_PASSWORD"),
 		}).ApplyURI(m.uri))
 }
