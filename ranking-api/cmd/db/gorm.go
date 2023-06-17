@@ -12,7 +12,7 @@ type Database struct {
 }
 
 type Ranking struct {
-	ID      int    `gorm:"primaryKey"`
+	ID      uint   `gorm:"primaryKey"`
 	Name    string `gorm:"not null"`
 	Phone   string `gorm:"unique;not null"`
 	Current int    `gorm:"not null"`
