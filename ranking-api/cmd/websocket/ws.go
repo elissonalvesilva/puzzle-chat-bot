@@ -10,7 +10,7 @@ import (
 
 type WS struct {
 	clients map[*websocket.Conn]bool
-	db      db.Database
+	db      db.MongoDatabase
 }
 
 var upgrader = websocket.Upgrader{
@@ -21,7 +21,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func NewWebSocket(db db.Database) *WS {
+func NewWebSocket(db db.MongoDatabase) *WS {
 	return &WS{
 		clients: make(map[*websocket.Conn]bool),
 		db:      db,

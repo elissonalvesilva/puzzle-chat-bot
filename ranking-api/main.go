@@ -4,32 +4,29 @@ import (
 	"fmt"
 	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
+	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/pkg"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 )
-
-func WebAPI(db *db.Database) {
-
-}
 
 func main() {
 	//err := godotenv.Load()
 	//if err != nil {
 	//	panic("Falha ao carregar o arquivo .env")
 	//}
-	app, err := db.NewDB()
+	client, err := pkg.NewMongoClient(os.Getenv("DB_HOST")).Client()
+	if err != nil {
+		panic("Falha ao conectar ao db")
+	}
+	app := db.NewDatabase(client, "test")
 	if err != nil {
 		panic("Falha ao inicializar o aplicativo")
 	}
 
-	err = app.AutoMigrateTables()
-	if err != nil {
-		panic("Falha ao inicializar o migration")
-	}
-
 	router := mux.NewRouter()
-	api := api2.NewAPI(app)
+	api := api2.NewAPI(*app)
 
 	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)

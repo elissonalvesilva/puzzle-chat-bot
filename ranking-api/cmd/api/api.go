@@ -3,12 +3,13 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api/protocols"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"net/http"
 )
 
 type API struct {
-	database db.Database
+	database db.MongoDatabase
 }
 
 type UserPostParam struct {
@@ -22,7 +23,7 @@ type UserUpdateCurrent struct {
 	Phone   string `json:"phone"`
 }
 
-func NewAPI(db db.Database) *API {
+func NewAPI(db db.MongoDatabase) *API {
 	return &API{
 		database: db,
 	}
@@ -35,19 +36,19 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Err to decode", http.StatusBadRequest)
 		return
 	}
-	fmt.Println(user)
-	if ok := api.database.ExistsPhone(user.Phone); ok {
+
+	if _, err := api.database.GetByPhone(user.Phone); err == nil {
 		http.Error(w, "Usuário Já cadastrado", http.StatusBadRequest)
 		return
 	}
 
-	userToCreate := db.Ranking{
+	userToCreate := protocols.UserPostParam{
 		Phone:   user.Phone,
 		Name:    user.Name,
 		Current: user.Current,
 	}
 
-	if err = api.database.Create(&userToCreate); err != nil {
+	if err = api.database.Create(userToCreate); err != nil {
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
@@ -66,13 +67,12 @@ func (api *API) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userToUpdate := db.Ranking{
-		ID:      userRanking.ID,
+	userToUpdate := protocols.UserPostParam{
 		Phone:   userRanking.Phone,
 		Current: user.Current,
 		Name:    userRanking.Name,
 	}
-	if err := api.database.UpdateCurrent(userToUpdate); err != nil {
+	if err := api.database.Update(userRanking.Id, userToUpdate); err != nil {
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
@@ -86,4 +86,23 @@ func (api *API) Clean(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "OK")
+}
+
+func (api *API) Ranking(w http.ResponseWriter, r *http.Request) {
+	users, err := api.database.GetAll()
+	if err != nil {
+		http.Error(w, "Erro interno", http.StatusInternalServerError)
+		return
+	}
+
+	jsonData, err := json.Marshal(users)
+	if err != nil {
+		http.Error(w, "Erro ao converter para JSON", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	w.Write(jsonData)
 }
