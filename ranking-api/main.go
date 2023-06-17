@@ -51,6 +51,7 @@ func main() {
 	router.HandleFunc("/api/create", api.Create).Methods("POST")
 	router.HandleFunc("/api/update", api.Update).Methods("PUT")
 	router.HandleFunc("/api/delete", api.Clean).Methods("DELETE")
+	router.HandleFunc("/api/ranking", api.Clean).Methods("GET")
 	fmt.Println("API STartign")
 	log.Fatal(http.ListenAndServe(":4546", router))
 }
