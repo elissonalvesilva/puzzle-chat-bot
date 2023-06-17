@@ -97,7 +97,7 @@ func (d *MongoDatabase) GetAll() (UsersRanking, error) {
 }
 
 func (d *MongoDatabase) DeleteAll() error {
-	_, err := d.db.Database(d.dbName).Collection("puzzle_user").DeleteMany(context.Background(), nil)
+	_, err := d.db.Database(d.dbName).Collection("puzzle_user").DeleteMany(context.Background(), bson.D{})
 	if err != nil {
 		return err
 	}
