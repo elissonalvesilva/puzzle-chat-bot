@@ -30,7 +30,11 @@ func NewAPI(db *db.Database) *API {
 
 func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 	var user UserPostParam
-	json.NewDecoder(r.Body).Decode(&user)
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		http.Error(w, "Err to decode", http.StatusBadRequest)
+		return
+	}
 
 	if ok := api.database.ExistsPhone(user.Phone); ok {
 		http.Error(w, "Usuário Já cadastrado", http.StatusBadRequest)
