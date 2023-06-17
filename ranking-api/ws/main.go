@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	socketio "github.com/googollee/go-socket.io"
 	"log"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	socketio "github.com/googollee/go-socket.io"
 )
 
 func GinMiddleware(allowOrigin string) gin.HandlerFunc {
@@ -26,7 +28,7 @@ func GinMiddleware(allowOrigin string) gin.HandlerFunc {
 }
 
 func main() {
-	router := gin.Default()
+	router := gin.New()
 
 	server := socketio.NewServer(nil)
 
@@ -41,9 +43,9 @@ func main() {
 		s.Emit("reply", "have "+msg)
 	})
 
-	server.OnEvent("/", "msg", func(s socketio.Conn, msg string) {
-		log.Println("received:", msg)
-		s.Emit("reply", "received "+msg)
+	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
+		s.SetContext(msg)
+		return "recv " + msg
 	})
 
 	server.OnEvent("/", "bye", func(s socketio.Conn) string {
@@ -58,10 +60,14 @@ func main() {
 	})
 
 	server.OnDisconnect("/", func(s socketio.Conn, msg string) {
-		log.Println("disconnected: ", msg)
+		log.Println("closed", msg)
 	})
 
-	go server.Serve()
+	go func() {
+		if err := server.Serve(); err != nil {
+			log.Fatalf("socketio listen error: %s\n", err)
+		}
+	}()
 	defer server.Close()
 
 	router.Use(GinMiddleware("http://localhost:3001"))
@@ -69,6 +75,6 @@ func main() {
 	router.POST("/socket.io/*any", gin.WrapH(server))
 
 	if err := router.Run(":8000"); err != nil {
-		log.Fatal("failed to run app: ", err)
+		log.Fatal("failed run app: ", err)
 	}
 }
