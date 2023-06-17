@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"net/http"
 )
@@ -48,6 +49,7 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "OK")
 }
 
 func (api *API) Update(w http.ResponseWriter, r *http.Request) {
