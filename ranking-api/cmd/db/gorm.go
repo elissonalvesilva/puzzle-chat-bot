@@ -5,6 +5,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
+	"time"
 )
 
 type Database struct {
@@ -12,10 +13,12 @@ type Database struct {
 }
 
 type Ranking struct {
-	ID      uint   `gorm:"primaryKey"`
-	Name    string `gorm:"not null"`
-	Phone   string `gorm:"unique;not null"`
-	Current int    `gorm:"not null"`
+	ID        uint      `gorm:"primaryKey"`
+	Name      string    `gorm:"not null"`
+	Phone     string    `gorm:"unique;not null"`
+	Current   int       `gorm:"not null"`
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 func NewDB() (Database, error) {
@@ -47,7 +50,7 @@ func (db Database) ExistsPhone(phone string) bool {
 	return count > 0
 }
 
-func (db Database) Create(userRanking Ranking) error {
+func (db Database) Create(userRanking *Ranking) error {
 	result := db.DB.Create(userRanking)
 
 	if result.Error != nil {
