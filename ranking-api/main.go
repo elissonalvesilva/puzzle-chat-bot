@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/gorilla/mux"
 	"log"
@@ -45,9 +46,13 @@ func main() {
 	}()
 	wg.Wait()
 
+	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, "OK")
+	}).Methods("GET")
 	router.HandleFunc("/api/create", api.Create).Methods("POST")
-	router.HandleFunc("/api/update", api.Create).Methods("PUT")
-	router.HandleFunc("/api/delete", api.Create).Methods("DELETE")
+	router.HandleFunc("/api/update", api.Update).Methods("PUT")
+	router.HandleFunc("/api/delete", api.Clean).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8002", router))
 }
