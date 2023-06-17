@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api/protocols"
 	"go.mongodb.org/mongo-driver/bson"
@@ -46,8 +47,13 @@ func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{"name": user.Name, "current": user.Current, "phone": user.Phone}}
 
-	_, err := d.db.Database(d.dbName).Collection("puzzle_user").UpdateOne(context.Background(), filter, update)
+	resp, err := d.db.Database(d.dbName).Collection("puzzle_user").UpdateOne(context.Background(), filter, update)
 	if err != nil {
+		return err
+	}
+
+	if resp.ModifiedCount <= 0 {
+		err = errors.New("user not modified")
 		return err
 	}
 
