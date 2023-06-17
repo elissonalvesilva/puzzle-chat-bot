@@ -13,7 +13,7 @@ func WebSocketServer(db *db.Database) {
 	ws := websocket.NewWebSocket(db)
 	http.HandleFunc("/ws", ws.WebsocketHandler)
 	fmt.Println("WebSocket Starting")
-	log.Fatal(http.ListenAndServe(":8001", nil))
+	log.Fatal(http.ListenAndServe(":4513", nil))
 }
 
 func main() {

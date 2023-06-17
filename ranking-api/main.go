@@ -23,7 +23,7 @@ func WebAPI(db *db.Database) {
 	router.HandleFunc("/api/update", api.Update).Methods("PUT")
 	router.HandleFunc("/api/delete", api.Clean).Methods("DELETE")
 	fmt.Println("API STartign")
-	log.Fatal(http.ListenAndServe(":8002", router))
+	log.Fatal(http.ListenAndServe(":4546", router))
 }
 
 func main() {
