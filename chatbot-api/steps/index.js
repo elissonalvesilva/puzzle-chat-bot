@@ -1,131 +1,144 @@
 const steps = [
   {
     id: 1,
-    question: `Nas altas montanhas do Piemonte,
-    No século XV, uma história de confronto.
-    Valdenses fiéis, perseguidos sem piedade,
-    Pela igreja que buscava sua lealdade.
+    question: `
+    Nas páginas da história, um golpe foi dado,
+    Berthier e seu exército, um fato ousado.
+    Pio VI, o Papa, de seu trono retirado,
+    O papado ferido, o mundo surpreso e alarmado.
     
-    Em 1488, no Vale de Loyse, a tristeza ecoou,
-    Pela fé, foram brutalmente destruídos.
-    Séculos depois, mais uma vez o terror se instaurou,
-    Quando o duque enviou seus soldados resolutos.
+    Mas nas escrituras sagradas, Apocalipse revelou,
+    Uma ferida mortal que seria curada, o destino anunciou.
+    Mais desse poder o mundo ouviria,
+    Um mistério profético que em breve se cumpriria.
     
-    Abril de 1655, às 4h da manhã, um sinal soou,
-    O massacre começou, a morte se avolumou.
-    Mais de 4.000 vítimas, um destino cruel,
-    A história se repetindo, um ciclo cruel.
+    Paulo, o apóstolo, alertou com fervor,
+    Sobre um desvio perigoso da Palavra do Senhor.
+    Uma distorção se espalharia pela igreja cristã,
+    Falsos evangelhos, uma armadilha a enganar os irmãos.
     
-    A profecia da marca da besta, um alerta profundo,
-    Uma cadeia maligna, perseguição que se esfunda.
-    Busca conformidade, crenças impondo,
-    Mas Deus terá um grupo que resiste, se recusando.
+    No Novo Testamento, a igreja florescia,
+    Mas heresias surgiriam, uma batalha em harmonia.
+    Um evangelho deturpado, enganoso e traiçoeiro,
+    A verdade corrompida, o caminho verdadeiro.
     
-    Qual é o nome desse povo valente,
-    Que enfrentou a opressão, sua fé fervente?
-    Um desafio para aqueles que sabem,
-    Quem são essas pessoas que jamais se curvam?`,
+    Desvende agora, este enigma a decifrar,
+    Encontre a resposta, desvende o segredo,
+    E compreenda a mensagem, o alerta de Paulo, o cedo.`,
   },
   {
     id: 2,
-    question: `No alto, um anjo ressoa sua voz clara,
-    Alertando com ardor sobre uma besta avara.
-    Quem ousar adorá-la e sua imagem louvar,
-    Sentirá a ira divina, não poderá escapar.
+    question: `Em visões misteriosas, o tempo se revela,
+    Um dia simbólico, o tempo desvela.
     
-    Uma marca sinistra, insígnia tenebrosa,
-    Na testa ou na mão, ela se deposita orgulhosa.
-    Quem a receber, cuidado, pois sofrerá,
-    O vinho da ira de Deus, não há como evitar.
+    Ano após ano, transforma-se em dança,
+    Segredos ocultos, numa eterna lembrança.
     
-    O aviso é dado, a questão está posta,
-    O desafio é seu, responda qual é a resposta.
-    Em tempos de incerteza, treva e guerra,
-    Diga-me agora, qual é a marca que se espera?`
+    Escrituras revelam, palavras de sabedoria,
+    O tempo se expande, em grandiosa harmonia.
+    
+    Uma passagem nas páginas sagradas,
+    Traduzindo mistérios, em jornadas prolongadas.
+    
+    Compreenda agora, a mensagem divina,
+    Decifre os anos, na minha charada cristalina.
+    
+    Desvende a verdade, encontre a resposta,
+    E o enigma desvendado, em sua mente se encosta.`
   },
   {
     id: 3,
-    question: `No clímax da batalha, a controvérsia final,
-    Entre o bem e o mal, um confronto magistral.
-    Um povo fiel, guardião dos mandamentos de Deus,
-    Vive pela fé em Jesus, um caminho que os conduz.
+    question: `Sou um símbolo sagrado, um marco divino,
+    Incorporado na lei, é meu destino.
+    Na antiguidade, atestava autenticidade,
+    Hoje, trago a marca da verdade.
     
-    Neste conflito ardente, onde a lealdade se entrelaça,
-    A adoração é a chave, o centro da praça.
-    No coração deste ato crucial e supremo,
-    Reside um elemento, desvendá-lo é o seu tema.
+    Os discípulos me guardam com devoção,
+    Um testemunho firme em sua ação.
+    Sou mencionado pelo profeta com clareza,
+    Um chamado para confirmar minha pureza.
     
-    O que está oculto, envolto em mistério e segredo,
-    Define o destino, o desfecho deste enredo.
-    A resposta repousa nas palavras que ecoam,
-    Então me diga agora, qual é o que falta que ecoa?
-    
-    Encontre o termo que se encaixa nessa cena,
-    E desvende o enigma, a resposta pequena.
-    No embate final, no palco desta história,
-    Revela o elemento que trará glória ou vitória.`
+    Quem sou eu neste enigma oculto,
+    Um sinal divino, que não é ocioso?
+    Refletindo a luz de um propósito maior,
+    Encontre-me e desvende meu valor.`
   },
   {
     id: 4,
-    question: `É "a força interior" de Jesus,
-    Que em nossos corações se põe em cruz.
-    Nos permite adorar Cristo, supremo ser,
-    E nos dá coragem para suportar, não ceder.
+    question: `Um adora a besta, e outro tem fé em Jesus,
+    Guardando os mandamentos, o caminho da luz.
+    Mas a batalha se trava, no campo da adoração,
+    O diabo ataca, buscando corromper a devoção.
     
-    Quando a marca da besta surgir, imponente,
-    Esta virtude nos sustenta, firmemente.
-    É um presente divino, uma dádiva de Deus,
-    Nos mantém íntegros, mesmo sob ataques seus.
+    Trabalhando através de bestas do mar e da terra,
+    O mal se infiltra, numa trama que encerra.
+    No coração do conflito, um segredo se esconde,
+    O sábado em questão, onde a fé responde.
     
-    No momento crucial, quando a provação chegar,
-    Essa força interna irá nos amparar.
-    Então, descubra agora, desvende o enigma,
-    Qual é a expressão que nos anima?
+    A marca da besta, seu lugar de imposição,
+    Revela-se a escolha, símbolo da transgressão.
+    Em lugar sagrado, onde será colocada?
+    Desvendar o enigma, essa resposta é almejada.
     
-    Reflete a essência de Jesus em nós,
-    Capaz de suportar, mesmo sob ferozes nós.
-    Quando a marca se concretizar, o segredo estará revelado,
-    Diga-me, agora, qual é o termo esperado?`
+    Descubra agora, a pista está à sua frente,
+    A marca revelada, a verdade latente.
+    Onde ela se fixará, deixe-me indagar,
+    Preste atenção e sua resposta irá encontrar.`
   },
   {
     id: 5,
-    question: `Nos bons tempos e nos maus tempos,
-    Quando Deus parece próximo ou distante,
-    Não importa a circunstância, o momento,
-    Pois, o que importa é o segredo relevante.
+    question: `Em três elementos se encontram, o selo divino está,
+    Revelando a autenticidade, onde eles estarão?
+    Primeiro, o nome do selador, um poder transcendente,
+    Nas palavras sagradas, encontrará sua semente.
     
-    Nas palavras sagradas, a resposta está,
-    No biblia, o versículo a desvendar.
-    Uma expressão poderosa, que nos faz entender.
+    Segundo, o título ressoa, o Criador em ação,
+    Na obra da criação, encontra-se sua expressão.
+    No terceiro elemento, o território se revela,
+    Nos vastos horizontes, a grandeza se consigna.
     
-    Não importa a aparência, o estado emocional,
-    A chave está em um frase, um ato fundamental.
-    Em todas as situações, essa é a essência,
-    Revelando a verdade, a resposta em evidência.
-    
-    O que mantém a chama acesa, a esperança viva,
-    Quando Deus parece próximo ou distante, ativa,
-    Diga-me agora, sem hesitação,
-    Qual é a resposta, essa frase de salvação?`
+    Agora, desvende onde eles estão localizados,
+    Esses elementos divinos, meticulosamente dispostos.
+    Procure com cuidado, que a resposta te guiará,
+    Os três elementos do selo, onde eles se encontrarão?`
   },
   {
     id: 6,
-    question: `Desvendar este enigma requer atenção,
-    Um código oculto está em ação.
-    Vamos decifrar, com astúcia e perspicácia,
-    A mensagem escondida que traz desavença e discórdia.
+    question: `Nas páginas sagradas, um segredo é revelado,
+    Profecias de tempo, mistérios a serem decifrados.
+    O princípio preciso, na interpretação encontrado,
+    Com as 70 semanas de Daniel, tão aclamado.
     
-    Código 1: 9-14-20-15-12-5-18-1-14-3-9-1
-    Código 2: 18-5-12-9-7-9-15-19-1
+    No livro do Apocalipse, um número intrigante,
+    42 meses mencionados, em visão fascinante.
+    Tempo simbólico, um princípio que se repete,
+    Um enigma a desvendar, na interpretação que se mete.
     
-    Um olhar minucioso revelará,
-    A mensagem codificada a desvendar.
-    Uma triste realidade que aflige o sistema.
+    Desvende agora, o mistério em questão,
+    Converta o tempo em uma nova dimensão.
+    Qual é o número simbólico que se esconde,
+    Revelando a verdade, a interpretação responde?
     
-    Primeiro código, palavras se formam,
-    Segundo código, uma verdade transforma.
-    Junte as peças e encontrará a resposta,
-    Uma expressão que nos causa desgosto.`
+    Agora é sua vez de decifrar o enigma proposto. Encontre a resposta que representa o número simbólico.`
+  },
+  {
+    id: 7,
+    question: `
+    Nas escrituras sagradas, mistérios se entrelaçam,
+    Profecias revelam, segredos que se abraçam.
+    Daniel, Paulo e João, suas palavras convergem,
+    Descrevendo um mistério, que muitas semelhanças emergem.
+    
+    Blasfemo que sucede a Roma pagã,
+    Besta semelhante a um leopardo, visão que se faz tamanha.
+    Três descrições, uma só conclusão,
+    Daniel, Paulo e João, falam da mesma direção.
+    
+    No centro desse enigma, a verdade se revela,
+    A conexão profética, a resposta clama.
+    Unindo os fios das profecias, o mistério se enlaça,
+    Desvendar o enigma, essa é a sua caça.
+    `
   }
 ]
 

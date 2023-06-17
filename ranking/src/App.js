@@ -1,11 +1,11 @@
-// import React, { useState } from 'react';
-// import useWebSocket from 'react-use-websocket';
+import React, { useState } from 'react';
+import useWebSocket from 'react-use-websocket';
 
-// //const App = () => {
+const App = () => {
 //   const [message, setMessage] = useState('');
 //   const { sendJsonMessage } = useWebSocket('ws://localhost:8001/ws');
 
-<<<<<<< Updated upstream
+// <<<<<<< Updated upstream
 //   const handleMessageChange = (event) => {
 //     setMessage(event.target.value);
 //   };
@@ -13,12 +13,12 @@
 //   const handleSendMessage = () => {
 //     sendJsonMessage({ message });
 //   };
-=======
+// =======
+    const { sendMessage, lastMessage, readyState } = useWebSocket('ws://ranking-api-ws.onrender.com/ws');
+
     const handleSendMessage = () => {
         sendMessage('refresh'); // Enviar mensagem para o servidor
     };
-
-    console.log(lastMessage?.data)
 
     return (
         <div>
@@ -28,7 +28,7 @@
         </div>
     );
 };
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
 
 //   return (
 //       <div>
@@ -38,4 +38,4 @@
 //   );
 // };
 
-// export default App;
+export default App;

@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 
 const WebSocketComponent = () => {
   useEffect(() => {
-    const socket = io('wss://exemplo.com'); 
+    const socket = io('ws://ranking-api-owmg.onrender.com/ws');
 
     const handleReceiveMessage = (message) => {
       console.log('Mensagem recebida:', message);
@@ -34,6 +34,7 @@ export default function AppRanking(){
   return(<>
   <ContainerRanking>
     <h1>Ranking</h1>
+    <WebSocketComponent/>
     <Names>
       <ul>
         <li className="name">Nomsdsdsdes
