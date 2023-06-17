@@ -3,7 +3,6 @@ package main
 import (
 	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"sync"
@@ -21,10 +20,10 @@ func WebSocketServer() {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Falha ao carregar o arquivo .env")
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	panic("Falha ao carregar o arquivo .env")
+	//}
 	app, err := db.NewDB()
 	if err != nil {
 		panic("Falha ao inicializar o aplicativo")
