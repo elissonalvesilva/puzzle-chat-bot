@@ -86,6 +86,7 @@ func (api *API) Update(w http.ResponseWriter, r *http.Request) {
 
 func (api *API) Clean(w http.ResponseWriter, r *http.Request) {
 	if err := api.database.DeleteAll(); err != nil {
+		fmt.Println(err)
 		http.Error(w, "Erro interno", http.StatusInternalServerError)
 		return
 	}
