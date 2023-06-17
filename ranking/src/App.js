@@ -2,23 +2,19 @@ import React, { useState } from 'react';
 import useWebSocket from 'react-use-websocket';
 
 const App = () => {
-  const [message, setMessage] = useState('');
-  const { sendJsonMessage } = useWebSocket('ws://localhost:8001/ws');
+    const { sendMessage, lastMessage, readyState } = useWebSocket('ws://ranking-api-owmg.onrender.com/ws');
 
-  const handleMessageChange = (event) => {
-    setMessage(event.target.value);
-  };
+    const handleSendMessage = () => {
+        sendMessage('Olá, servidor!'); // Enviar mensagem para o servidor
+    };
 
-  const handleSendMessage = () => {
-    sendJsonMessage({ message });
-  };
-
-  return (
-      <div>
-        <input type="text" value={message} onChange={handleMessageChange} />
-        <button onClick={handleSendMessage}>Enviar</button>
-      </div>
-  );
+    return (
+        <div>
+            <div>Status da conexão: {readyState === 1 ? 'Conectado' : 'Desconectado'}</div>
+            <div>Última mensagem recebida: {lastMessage && lastMessage.data}</div>
+            <button onClick={handleSendMessage}>Enviar mensagem para o servidor</button>
+        </div>
+    );
 };
 
 export default App;
