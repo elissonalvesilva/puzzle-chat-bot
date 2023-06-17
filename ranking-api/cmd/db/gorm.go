@@ -47,7 +47,7 @@ func (db *Database) ExistsPhone(phone string) bool {
 	return count > 0
 }
 
-func (db *Database) Create(userRanking Ranking) error {
+func (db *Database) Create(userRanking *Ranking) error {
 	result := db.DB.Create(userRanking)
 
 	if result.Error != nil {
