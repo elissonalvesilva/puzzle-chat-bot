@@ -17,10 +17,6 @@ func WebSocketServer(db *db.Database) {
 }
 
 func main() {
-	//err := godotenv.Load()
-	//if err != nil {
-	//	panic("Falha ao carregar o arquivo .env")
-	//}
 	app, err := db.NewDB()
 	if err != nil {
 		panic("Falha ao inicializar o aplicativo")

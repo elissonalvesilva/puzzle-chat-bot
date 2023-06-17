@@ -30,7 +30,7 @@ func NewWebSocket(db *db.Database) *WS {
 
 func (ws *WS) WebsocketHandler(w http.ResponseWriter, r *http.Request) {
 	connection, _ := upgrader.Upgrade(w, r, nil)
-	fmt.Println(connection)
+	
 	ws.clients[connection] = true // Save the connection using it as a key
 
 	for {
