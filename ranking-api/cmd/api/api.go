@@ -1,10 +1,11 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api/protocols"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
 	"net/http"
 )
 
@@ -29,17 +30,17 @@ func NewAPI(db db.MongoDatabase) *API {
 	}
 }
 
-func (api *API) Create(w http.ResponseWriter, r *http.Request) {
+func (api *API) Create(c *gin.Context) {
 	var user UserPostParam
-	err := json.NewDecoder(r.Body).Decode(&user)
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Err to decode", http.StatusBadRequest)
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode JSON"})
 		return
 	}
 
 	if _, err := api.database.GetByPhone(user.Phone); err == nil {
-		http.Error(w, "Usuário Já cadastrado", http.StatusBadRequest)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Usuario ja cadastrado",
+		})
 		return
 	}
 
@@ -49,23 +50,37 @@ func (api *API) Create(w http.ResponseWriter, r *http.Request) {
 		Current: user.Current,
 	}
 
-	if err = api.database.Create(userToCreate); err != nil {
+	if err := api.database.Create(userToCreate); err != nil {
 		fmt.Println(err)
-		http.Error(w, "Erro interno", http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "erro interno",
+		})
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "OK")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "ok",
+	})
 }
 
-func (api *API) Update(w http.ResponseWriter, r *http.Request) {
+func (api *API) Update(c *gin.Context) {
 	var user UserUpdateCurrent
-	json.NewDecoder(r.Body).Decode(&user)
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to decode JSON"})
+		return
+	}
 
 	userRanking, err := api.database.GetByPhone(user.Phone)
 	if err != nil {
-		http.Error(w, "Usuário nao cadastrado", http.StatusNotFound)
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "usuario nao existe",
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "usuario ja cadastrado",
+			})
+		}
 		return
 	}
 
@@ -76,40 +91,41 @@ func (api *API) Update(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := api.database.Update(userRanking.Id, userToUpdate); err != nil {
 		fmt.Println(err)
-		http.Error(w, "Erro interno", http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "erro interno",
+		})
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "OK")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "ok",
+	})
 }
 
-func (api *API) Clean(w http.ResponseWriter, r *http.Request) {
+func (api *API) Clean(c *gin.Context) {
 	if err := api.database.DeleteAll(); err != nil {
 		fmt.Println(err)
-		http.Error(w, "Erro interno", http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "erro interno",
+		})
 		return
 	}
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, "OK")
+	c.JSON(http.StatusOK, gin.H{
+		"message": "ok",
+	})
 }
 
-func (api *API) Ranking(w http.ResponseWriter, r *http.Request) {
+func (api *API) Ranking(c *gin.Context) {
 	users, err := api.database.GetAll()
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, "Erro interno", http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "erro interno",
+		})
 		return
 	}
 
-	jsonData, err := json.Marshal(users)
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Erro ao converter para JSON", http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-
-	w.Write(jsonData)
+	c.JSON(http.StatusOK, gin.H{
+		"data": users,
+	})
 }

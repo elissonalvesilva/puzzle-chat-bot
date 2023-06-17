@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	api2 "github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
+	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/api"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/cmd/db"
 	"github.com/elissonalvesilva/puzzle-chat-bot/ranking-api/pkg"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	//err := godotenv.Load()
+	//err := dotenv.Load()
 	//if err != nil {
 	//	panic("Falha ao carregar o arquivo .env")
 	//}
@@ -29,7 +29,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer client.Disconnect(ctxTodo)
 	err = client.Ping(ctxTodo, readpref.Primary())
 	if err != nil {
@@ -41,17 +40,30 @@ func main() {
 		panic("Falha ao inicializar o aplicativo")
 	}
 
-	router := mux.NewRouter()
-	api := api2.NewAPI(*app)
+	router := gin.Default()
+	api := api.NewAPI(*app)
 
-	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		fmt.Fprint(w, "OK")
-	}).Methods("GET")
-	router.HandleFunc("/api/create", api.Create).Methods("POST")
-	router.HandleFunc("/api/update", api.Update).Methods("PUT")
-	router.HandleFunc("/api/delete", api.Clean).Methods("DELETE")
-	router.HandleFunc("/api/ranking", api.Ranking).Methods("GET")
-	fmt.Println("API STartign")
+	router.GET("/health", func(c *gin.Context) {
+		c.String(http.StatusOK, "OK")
+	})
+
+	router.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Insira a origem permitida do seu aplicativo front-end
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+	router.POST("/api/create", api.Create)
+	router.PUT("/api/update", api.Update)
+	router.DELETE("/api/delete", api.Clean)
+	router.GET("/api/ranking", api.Ranking)
+
+	fmt.Println("API Starting")
 	log.Fatal(http.ListenAndServe(":4546", router))
 }
