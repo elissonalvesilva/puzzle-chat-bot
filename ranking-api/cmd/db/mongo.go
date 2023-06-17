@@ -43,13 +43,14 @@ func (d *MongoDatabase) Create(user protocols.UserPostParam) error {
 	return nil
 }
 
-func (d *MongoDatabase) GetByPhone(phone string) (protocols.UserGetResponse, error) {
-	var user protocols.UserGetResponse
-	filter := bson.M{"phone": phone}
+func (d *MongoDatabase) GetByPhone(phone string) (UserModel, error) {
+	var user UserModel
+	filter := bson.D{{"phone", phone}}
+
 	err := d.db.Database(d.dbName).Collection("puzzle_user").FindOne(context.Background(), filter).Decode(&user)
 
 	if err != nil {
-		return protocols.UserGetResponse{}, err
+		return UserModel{}, err
 	}
 
 	return user, nil
