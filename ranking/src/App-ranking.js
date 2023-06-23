@@ -1,50 +1,68 @@
 import styled from "styled-components";
 import estrela from "./img/estrela.png";
-import React, { useEffect } from 'react';
-import io from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
-const WebSocketComponent = () => {
+
+function Star() {
+  return (
+    <>
+      <div className="start">
+        <img className="estrela" src={estrela} alt="estrela"/>
+      </div>
+    </>
+  )
+}
+
+function Stars({current = 0}) {
+  let startsComp = []; 
+  for (let i = 0; i < current; i++) {
+    startsComp.push(<Star key={i}/>)
+  }
+  
+  return startsComp
+}
+
+export default function AppRanking(){
+  const api = process.env.REACT_APP_RANKING_API;
+  const [users, setUsers] = useState([])
+
   useEffect(() => {
-    const socket = io('ws://ranking-api-owmg.onrender.com/ws');
-
-    const handleReceiveMessage = (message) => {
-      console.log('Mensagem recebida:', message);
+    const fetchData = async () => {
+      try {
+        const {data} = await axios.get(api); // Substitua pela URL da sua API
+        setUsers(data.data.Users);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    socket.on('connect', () => {
-      setInterval(() => {
-        socket.emit('message', 'Olá, servidor!');
-      }, 5000);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Conexão encerrada.');
-    });
-     socket.on('message', handleReceiveMessage);
+    const intervalId = setInterval(fetchData, 5000); // Chama a função fetchData a cada 3 segundos
 
     return () => {
-      socket.disconnect();
+      clearInterval(intervalId); // Limpa o intervalo quando o componente for desmontado
     };
   }, []);
 
-  return <div>WebSocket Component</div>;
-};
-
-export default function AppRanking(){
   return(<>
   <ContainerRanking>
     <h1>Ranking</h1>
-    <WebSocketComponent/>
-    <Names>
+    <Users>
       <ul>
-        <li className="name">Nomsdsdsdes
-           <img className="estrela" src={estrela} alt="estrela"/>
-        </li>
-         <li className="name">Nomsdsdsdes
-           <img className="estrela" src={estrela} alt="estrela"/>
-        </li>
+        {
+          users.length > 0 ? (
+            users.map((user, index) => (
+              <li className="user" key={index}>
+                <span className="name">{user.name}</span>
+                <div className="starts">
+                  {Stars({ current: user.current })}
+                </div>
+              </li>
+            ))
+          ): <></>
+        }
       </ul>
-    </Names>
+    </Users>
   </ContainerRanking>
   
   </>);
@@ -58,8 +76,8 @@ font-family:'Press Start 2P', cursive;
 color: white;
 
 `
-const Names = styled.div`
- .name{
+const Users = styled.div`
+ .user{
   margin: 10px;
   padding: 10px;
   background-color: white;
@@ -69,6 +87,15 @@ const Names = styled.div`
   font-size: larger;
   font-family:'Press Start 2P', cursive;
   color: black;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  .name {
+    margin-top:3px;
+  }
+  .starts {
+    display: flex;
+  }
   .estrela{
     width: 30px;
     height: 30px;
@@ -76,13 +103,5 @@ const Names = styled.div`
   }
  }
 
-
-`
-const Stars = styled.div`
-img {
-  width: 100%;
-}
-height: 25px;
-width: 25px;
 
 `

@@ -76,7 +76,7 @@ func (d *MongoDatabase) Update(id string, user protocols.UserPostParam) error {
 }
 
 func (d *MongoDatabase) GetAll() (UsersRanking, error) {
-	options := options.Find().SetSort(bson.D{{Key: "current", Value: 1}})
+	options := options.Find().SetSort(bson.D{{Key: "current", Value: -1}})
 
 	cursor, err := d.db.Database(d.dbName).Collection("puzzle_user").Find(context.Background(), bson.D{}, options)
 	if err != nil {
