@@ -31,7 +31,7 @@ export default function AppRanking(){
     const fetchData = async () => {
       try {
         const {data} = await axios.get(api); // Substitua pela URL da sua API
-        setUsers(data.data.Users);
+        setUsers(data?.data?.Users);
       } catch (error) {
         console.error(error);
       }
