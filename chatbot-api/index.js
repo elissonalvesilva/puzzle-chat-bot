@@ -127,6 +127,55 @@ function isProxima(message) {
   return false
 }
 
+async function RunSteps(user, from) {
+  if(user.step === 2 && user.current_puzzle == 2) {
+    const media = MessageMedia.fromFilePath('./img1.jpeg');
+    client.sendMessage(from, media);
+    await updateCurrentStepUserByPhoneNumber(from, steps[2]['step']);
+  }
+
+  if(user.step === 3 && user.current_puzzle == 3) {
+    client.sendMessage(from, puzzle[1]['question']);
+    await updateCurrentStepUserByPhoneNumber(from, steps[3]['step']);
+  }
+
+  if(user.step === 4 && user.current_puzzle == 4) {
+    const linkLorena = "https://api.whatsapp.com/send?phone=5548998082313&text=Oi%20Lorena%2C%20desvendei%20um%20enigma%20e%20encontrei%20seu%20numero.%20Qual%20o%20proximo%20desafio%20%3F"
+    client.sendMessage(from, linkLorena);
+    await updateCurrentStepUserByPhoneNumber(from, steps[4]['step']);
+  }
+
+  if(user.step == 5 && user.current_puzzle == 5) {
+    const dicas = `
+    Dica: evangelho eterno
+    Dica: Mensagem de salvação      
+    `
+    const media = MessageMedia.fromFilePath('./qrcode.jpeg');
+    client.sendMessage(from, media);
+    client.sendMessage(from, dicas)
+    await updateCurrentStepUserByPhoneNumber(from, steps[5]['step']);
+  }
+
+  if(user.step == 6 && user.current_puzzle == 6) {
+    const media = MessageMedia.fromFilePath('./img2.jpeg');
+    client.sendMessage(from, media);
+    await updateCurrentStepUserByPhoneNumber(from, steps[6]['step']);
+  }
+
+  if(user.step == 7  && user.current_puzzle == 7) {
+    const code = `70YDsj2oBL5RtOc6tJCJzc0GqRFv1Jet5_H0gf6Y9zfLBJ9qolZDm2xfx8nTFLrODL63wbBRzycar_KBJzR_DiA5qYLfnGQfgsxaD9iyxI2vf7QCgB5gXqFVMwyy7WPeFzVbkRLbqvUUERKeNvVKcg`;
+    client.sendMessage(from, puzzle[3]['question']);
+    client.sendMessage(from, "Texto criptografado...");
+    client.sendMessage(from, code);
+    await updateCurrentStepUserByPhoneNumber(from, steps[7]['step']);
+  }
+
+  if(user.step == 8 && user.current_puzzle == 8) {
+    client.sendMessage(from, puzzle[4]['question']);
+    await updateCurrentStepUserByPhoneNumber(from, steps[8]['step']);
+  }
+}
+
 client.on('message', async (message) => {
 
   const allowedMessageNumberRegex = /^\d+@c\.us$/;
@@ -163,7 +212,7 @@ client.on('message', async (message) => {
         return
       }
     }
-    console.log(user);
+
     console.log(isProxima(message.body), user.step, user.current_puzzle)
     if(isProxima(message.body) && user.step === 2 && user.current_puzzle == 2) {
       const media = MessageMedia.fromFilePath('./img1.jpeg');
@@ -217,10 +266,11 @@ client.on('message', async (message) => {
     client.sendMessage(message.from, "Processando a resposta.... :)");
       const puzzleId = user.current_puzzle;
       const answer = message.body;
-      axios.post(`${solverServiceURL}/puzzle`, {
-        puzzle_id: puzzleId,
-        answer,
-      }).then(async (resp) => {
+      try {
+        const resp = await axios.post(`${solverServiceURL}/puzzle`, {
+          puzzle_id: puzzleId,
+          answer,
+        })
         client.sendMessage(message.from, "Resposta correta")
         await updateCurrentPuzzleUserByPhoneNumber(message.from, user.current_puzzle+1);
         client.sendMessage(message.from, resp.data.message.clue);
@@ -228,12 +278,13 @@ client.on('message', async (message) => {
           phone: message.from,
           current: user.current_puzzle+1,
         });
-      }).catch((err) => {
+        return await RunSteps(user, message.from)
+      } catch (error) {
         console.log(err);
         const percentage = (err.response.data?.percentage * 100).toFixed(2);
         const formatedPercentage = percentage.toLocaleString('pt-BR');
         client.sendMessage(message.from, `Resposta incorreta, aproximação da resposta em ${formatedPercentage}%`)
-      })
+      }
     }
   }
 
