@@ -7,11 +7,24 @@ const steps = [
   },
   {
     step: 2,
-    info: "Informe seu Nome",
   },
   {
     step: 3,
-    info: "Informe seu Nome",
+  },
+  {
+    step: 4,
+  },
+  {
+    step: 5,
+  },
+  {
+    step: 6,
+  },
+  {
+    step: 7,
+  },
+  {
+    step: 8,
   }
 ];
 

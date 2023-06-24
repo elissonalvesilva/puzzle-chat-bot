@@ -59,13 +59,22 @@ def get_puzzle(puzzle_id):
     {
         "id": 3,
         "answers": [
+            "LORENA",
+            "lorena",
+            "Lorena",
+        ],
+        "clue": "",
+    },
+    {
+        "id": 4,
+        "answers": [
             "Apocalipse 13:8",
             "Ap 13:8",
         ],
         "clue": "Vai buscar",
     },
     {
-        "id": 4,
+        "id": 5,
         "answers": [
             "morte de jesus",
             "a morte de jesus",
@@ -75,7 +84,7 @@ def get_puzzle(puzzle_id):
         "clue": "",
     },
     {
-        "id": 5,
+        "id": 6,
         "answers": [
             "Mateus 24:42",
             "Mat 24:42",
@@ -85,20 +94,13 @@ def get_puzzle(puzzle_id):
         "clue": "",
     },
     {
-        "id": 6,
+        "id": 7,
         "answers": [
             "vigiar",
             "vigiai",
             "observar",
             "vigiai e orai",
             "vigiar e orar"
-        ],
-        "clue": "",
-    },
-    {
-        "id": 7,
-        "answers": [
-            "Enquanto as pessoas se apegarem à Bíblia e seguirem o que ela ensina, não serão enganadas na crise final"
         ],
         "clue": "",
     }
