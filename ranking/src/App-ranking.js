@@ -46,7 +46,11 @@ export default function AppRanking(){
 
   return(<>
   <ContainerRanking>
-    <h1>Ranking</h1>
+    <div className="header">
+      <h1>Ranking</h1>
+      <h2>Participantes: {users.length}</h2>
+    </div>
+
     <Users>
       <ul>
         {
@@ -74,17 +78,24 @@ padding: 20px;
 font-size: larger;
 font-family:'Press Start 2P', cursive;
 color: white;
+min-height: 100vh;
+height:auto;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 
 `
 const Users = styled.div`
  .user{
-  margin: 10px;
+  margin: 20px 0px 10px 0;
   padding: 10px;
   background-color: white;
   color: white;
   border: 4px solid black;
   margin-bottom: 10px;
-  font-size: larger;
+  font-size: 50px;
   font-family:'Press Start 2P', cursive;
   color: black;
   overflow-x: scroll;
@@ -92,14 +103,16 @@ const Users = styled.div`
   align-items: center;
   .name {
     margin-top:3px;
+    margin-right: 40px;
+    text-transform: uppercase;
   }
   .starts {
     display: flex;
   }
   .estrela{
-    width: 30px;
-    height: 30px;
-    margin-left: 5px;
+    width: 80px;
+    height: 80px;
+    margin-left: 45px;
   }
  }
 
