@@ -48,7 +48,7 @@ export default function AppRanking(){
   <ContainerRanking>
     <div className="header">
       <h1>Ranking</h1>
-      <h2>Participantes: {users.length}</h2>
+      <h2>Participantes: {users?.length || 0}</h2>
     </div>
 
     <Users>
