@@ -173,13 +173,13 @@ client.on('message', async (message) => {
 
     if(isProxima(message.body) && user.step === 3 && user.current_puzzle == 3) {
       client.sendMessage(message.from, puzzle[1]['question']);
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[2]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[3]['step']);
     }
 
     if(isProxima(message.body) && user.step === 4 && user.current_puzzle == 4) {
       const linkLorena = "https://api.whatsapp.com/send?phone=5548998082313&text=Oi%20Lorena%2C%20desvendei%20um%20enigma%20e%20encontrei%20seu%20numero.%20Qual%20o%20proximo%20desafio%20%3F"
       client.sendMessage(message.from, linkLorena);
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[3]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[4]['step']);
     }
 
     if(isProxima(message.body) && user.step == 5 && user.current_puzzle == 5) {
@@ -190,13 +190,13 @@ client.on('message', async (message) => {
       const media = MessageMedia.fromFilePath('./qrcode.jpeg');
       client.sendMessage(message.from, media);
       client.sendMessage(message.from, dicas)
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[4]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[5]['step']);
     }
 
     if(isProxima(message.body) && user.step == 6 && user.current_puzzle == 6) {
       const media = MessageMedia.fromFilePath('./img2.jpeg');
       client.sendMessage(message.from, media);
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[5]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[6]['step']);
     }
 
     if(isProxima(message.body) && user.step == 7  && user.current_puzzle == 7) {
@@ -204,12 +204,12 @@ client.on('message', async (message) => {
       client.sendMessage(message.from, puzzle[3]['question']);
       client.sendMessage(message.from, "Texto criptografado...");
       client.sendMessage(message.from, code);
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[6]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[7]['step']);
     }
 
     if(isProxima(message.body) && user.step == 8 && user.current_puzzle == 8) {
       client.sendMessage(message.from, puzzle[4]['question']);
-      await updateCurrentStepUserByPhoneNumber(message.from, steps[6]['step']);
+      await updateCurrentStepUserByPhoneNumber(message.from, steps[8]['step']);
     }
     
 

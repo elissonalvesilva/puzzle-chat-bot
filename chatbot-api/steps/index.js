@@ -26,6 +26,10 @@ const steps = [
   {
     step: 8,
   }
+  ,
+  {
+    step: 9,
+  }
 ];
 
 module.exports = steps;

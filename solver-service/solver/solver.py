@@ -71,7 +71,7 @@ def get_puzzle(puzzle_id):
             "Apocalipse 13:8",
             "Ap 13:8",
         ],
-        "clue": "Vai buscar",
+        "clue": "",
     },
     {
         "id": 5,
@@ -96,11 +96,15 @@ def get_puzzle(puzzle_id):
     {
         "id": 7,
         "answers": [
-            "vigiar",
-            "vigiai",
-            "observar",
-            "vigiai e orai",
-            "vigiar e orar"
+            "Enquanto as pessoas se apegarem à Bíblia e seguirem o que ela ensina, não serão enganadas na crise final"
+        ],
+        "clue": "",
+    },
+    {
+        "id": 8,
+        "answers": [
+            "Mensagem de cristo para sua igreja",
+            "Mensagem de cristo para igreja"
         ],
         "clue": "",
     }
